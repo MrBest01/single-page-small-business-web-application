@@ -15,7 +15,7 @@
     </head>
 
     <body>
-        <header class="header" id="header">
+        <header class="header" id="header" style="position:fixed; top:0; left:0; width:100%; z-index:100; transition:top 0.4s;">
             <nav class="nav container">
                 <a class="nav__logo" href="#">Servicios y Consultas Duque S.L.</a>
 
@@ -50,11 +50,10 @@
                     <i class="bi bi-list-nested"></i>
                 </div>
 
-                <a class="button button__header" href="#">Lorem, ipsum.</a>
             </nav>
         </header>
 
-        <section class="home section" id="home">
+        <section class="home section" id="home" style="padding-top:7rem;">
             <div class="home__container container">
                 <article class="svg__img home__img" id="img1">
                     <!-- Imagen profesional o representativa de consultoría/empresa pequeña -->
@@ -62,7 +61,7 @@
                 </article>
                 <article class="home__info">
                     <h1 class="home__title">
-                        Servicios y Consultas Duque S.L. – Asesoría para Autónomos y Sociedades
+                       Asesoría para Autónomos y Sociedades
                     </h1>
                     <h2 class="home__subtitle" style="font-weight: 400; font-size: 1.3rem; margin-top: 1rem;">
                         Profesional con amplia experiencia en contabilidad, impuestos y gestión de empresas, ayudando a autónomos, sociedades y particulares a organizar sus finanzas de forma eficiente y justa.
@@ -103,7 +102,7 @@
                         <li>Hay errores acumulados en la contabilidad</li>
                         <li>Se necesita ordenar la empresa antes de tomar decisiones importantes</li>
                     </ul>
-                    <button class="button button-link" onclick="document.getElementById('sociedades-mas').open = true;">Ver más aquí</button>
+                    <button class="button button-link" onclick="toggleDetails('sociedades-mas')">Ver más aquí</button>
                     <details id="sociedades-mas" style="margin-top:1rem;">
                         <summary style="cursor:pointer; font-weight:bold;">Más información sobre Sociedades</summary>
                         <p style="margin-top:0.7rem;">Si tienes dudas sobre la situación de tu empresa, puedo analizar tu contabilidad y proponer soluciones prácticas para mejorar la gestión y la toma de decisiones.</p>
@@ -144,7 +143,7 @@
                         <li>Optimización real de costes fiscales</li>
                         <li>Formación práctica para gestionar facturas y obligaciones</li>
                     </ul>
-                    <button class="button button-link" onclick="document.getElementById('autonomos-mas').open = true;">Ver más aquí</button>
+                    <button class="button button-link" onclick="toggleDetails('autonomos-mas')">Ver más aquí</button>
                     <details id="autonomos-mas" style="margin-top:1rem;">
                         <summary style="cursor:pointer; font-weight:bold;">Más información para Autónomos</summary>
                         <p style="margin-top:0.7rem;">Te ayudo a entender tus obligaciones fiscales y a gestionar tus facturas de forma sencilla, para que pagues solo lo justo y evites problemas futuros.</p>
@@ -186,7 +185,7 @@
                         <li>Despidos y finiquitos</li>
                         <li>Escritos antes de firmar o pagar</li>
                     </ul>
-                    <button class="button button-link" onclick="document.getElementById('particulares-mas').open = true;">Ver más aquí</button>
+                    <button class="button button-link" onclick="toggleDetails('particulares-mas')">Ver más aquí</button>
                     <details id="particulares-mas" style="margin-top:1rem;">
                         <summary style="cursor:pointer; font-weight:bold;">Más información para Particulares</summary>
                         <p style="margin-top:0.7rem;">Si tienes dudas legales o económicas, reviso tu documentación y te explico las opciones antes de que tomes una decisión importante.</p>
@@ -217,7 +216,7 @@
                         <li>Optimización de impuestos según tu actividad</li>
                         <li>Formación básica para gestionar tus facturas y documentos</li>
                     </ul>
-                    <button class="button button-link" onclick="document.getElementById('como-mas').open = true;">Ver más aquí</button>
+                    <button class="button button-link" onclick="toggleDetails('como-mas')">Ver más aquí</button>
                     <details id="como-mas" style="margin-top:1rem;">
                         <summary style="cursor:pointer; font-weight:bold;">Más sobre mi forma de trabajar</summary>
                         <p style="margin-top:0.7rem;">Cada cliente es único. Me adapto a tus necesidades y te explico cada paso para que tengas el control de tu gestión económica.</p>
@@ -355,7 +354,7 @@
                     <p class="about__description">
                         Soy profesional con más de 40 años de experiencia en administración, contabilidad, fiscalidad y relaciones laborales. He trabajado como responsable financiero y jefe de administración en multinacionales y empresas de distintos tamaños, participando en auditorías, inspecciones de Hacienda, procesos de saneamiento y reorganización empresarial. Esa experiencia me permite aportar hoy una visión práctica, realista y honesta a sociedades, autónomos y particulares que necesitan orden y claridad en su gestión económica. No prometo milagros ni busco volumen. Aporto experiencia, criterio y tranquilidad.
                     </p>
-                    <button class="button button-link" onclick="document.getElementById('sobremi-mas').open = true;">Ver más aquí</button>
+                    <button class="button button-link" onclick="toggleDetails('sobremi-mas')">Ver más aquí</button>
                     <details id="sobremi-mas" style="margin-top:1rem;">
                         <summary style="cursor:pointer; font-weight:bold;">Más sobre mi experiencia</summary>
                         <p style="margin-top:0.7rem;">He participado en auditorías, inspecciones de Hacienda y procesos de reorganización, aportando siempre honestidad y soluciones prácticas.</p>
@@ -370,7 +369,12 @@
     </body>
 
 <script>
-// Smooth scroll for anchor links
+// Toggle details for 'Ver más aquí' buttons
+function toggleDetails(id) {
+    var el = document.getElementById(id);
+    if (el) el.open = !el.open;
+}
+// Smooth scroll for anchor links and close mobile menu after click
 document.querySelectorAll('a.nav__link, .footer__link, .scrollup').forEach(link => {
     link.addEventListener('click', function(e) {
         const href = this.getAttribute('href');
@@ -379,9 +383,27 @@ document.querySelectorAll('a.nav__link, .footer__link, .scrollup').forEach(link 
             if (target) {
                 e.preventDefault();
                 target.scrollIntoView({ behavior: 'smooth' });
+                // Close mobile menu if open
+                const navMenu = document.getElementById('nav-menu');
+                if (navMenu && navMenu.classList.contains('show-menu')) {
+                    navMenu.classList.remove('show-menu');
+                }
             }
         }
     });
+});
+
+// Hide header on scroll down, show on scroll up
+let lastScrollY = window.scrollY;
+let header = document.getElementById('header');
+window.addEventListener('scroll', function() {
+    if (!header) header = document.getElementById('header');
+    if (window.scrollY > lastScrollY && window.scrollY > 80) {
+        header.style.top = '-100px'; // hide
+    } else {
+        header.style.top = '0'; // show
+    }
+    lastScrollY = window.scrollY;
 });
 // Modal dialog logic
 function openModal(id) {
