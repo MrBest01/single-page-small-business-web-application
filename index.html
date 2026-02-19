@@ -6,7 +6,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Your Business Name</title>
+        <title>Servicios y Consultas Duque S.L.</title>
 
         <!-- Remove these two lines below on the final edition, when you are going to upload the project online, and then run 'npm run build' in the terminal to create the final production version in the dist folder -->
         <script defer src="dist/js/app.js"></script>
@@ -17,24 +17,30 @@
     <body>
         <header class="header" id="header">
             <nav class="nav container">
-                <a class="nav__logo" href="#">Business Name</a>
+                <a class="nav__logo" href="#">Servicios y Consultas Duque S.L.</a>
 
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
                         <li class="nav__item">
-                            <a class="nav__link" href="#home">Home</a>
+                            <a class="nav__link" href="#home">Inicio</a>
                         </li>
                         <li class="nav__item">
-                            <a class="nav__link" href="#about">About us</a>
+                            <a class="nav__link" href="#sociedades">Sociedades</a>
                         </li>
                         <li class="nav__item">
-                            <a class="nav__link" href="#support">Support</a>
+                            <a class="nav__link" href="#autonomos">Autónomos</a>
                         </li>
                         <li class="nav__item">
-                            <a class="nav__link" href="#services">Services</a>
+                            <a class="nav__link" href="#particulares">Particulares</a>
                         </li>
                         <li class="nav__item">
-                            <a class="nav__link" href="#contact">Contact us</a>
+                            <a class="nav__link" href="#como-trabajo">Cómo trabajo</a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="#sobre-mi">Sobre mí</a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="#contacto">Contacto</a>
                         </li>
                         <i class="change-theme bi bi-toggle-off" id="theme-button"></i>
                     </ul>
@@ -50,143 +56,243 @@
 
         <section class="home section" id="home">
             <div class="home__container container">
-                <article class="svg__img home__img" id="img1"></article>
-
+                <article class="svg__img home__img" id="img1">
+                    <!-- Imagen profesional o representativa de consultoría/empresa pequeña -->
+                    <img src="src/images/consultoria.jpg" alt="Consultoría Duque" style="max-width: 320px; width: 100%; border-radius: 12px; box-shadow: 0 2px 12px #0001;" onerror="this.style.display='none'">
+                </article>
                 <article class="home__info">
                     <h1 class="home__title">
-                        Lorem ipsum dolor sit. <br>
-                        <span>Home</span>
+                        Servicios y Consultas Duque S.L. – Asesoría para Autónomos y Sociedades
                     </h1>
-                    <p class="home__description">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius eveniet doloremque non sit reiciendis magni illo nesciunt numquam.
+                    <h2 class="home__subtitle" style="font-weight: 400; font-size: 1.3rem; margin-top: 1rem;">
+                        Profesional con amplia experiencia en contabilidad, impuestos y gestión de empresas, ayudando a autónomos, sociedades y particulares a organizar sus finanzas de forma eficiente y justa.
+                    </h2>
+                    <p class="home__description" style="margin-top: 1.5rem;">
+                        Me dedico a ayudar a empresas pequeñas, autónomos y particulares a llevar sus cuentas correctamente, optimizando costes fiscales y evitando cobros innecesarios. Con mi experiencia como director financiero y jefe de administración de grandes empresas, pongo al día contabilidades, reviso nóminas y finiquitos, y organizo su economía de forma transparente y responsable.
                     </p>
-                    <a href="#" class="button">Lorem, ipsum.</a>
+                    <div style="text-align:center; margin:2rem 0;">
+                        <img src="src/images/creative-asesoria-1.jpg" alt="Organización de cuentas" style="max-width:260px; width:100%; border-radius:10px; box-shadow:0 2px 12px #0002;" onerror="this.style.display='none'">
+                        <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Organización y revisión de cuentas</div>
+                    </p>
+                    <p class="home__description" style="margin-top: 1rem;">
+                        Muchos autónomos que no tienen empleados pueden acogerse a sistemas fiscales simplificados (módulos o estimación objetiva), pagando únicamente lo que corresponde por ley. Lamentablemente, algunas asesorías cobran mensualidades elevadas sin hacer nada, generando costes innecesarios. Yo reviso cada caso y recomiendo la forma fiscal más adecuada para reducir gastos, siempre dentro de la legalidad y de forma transparente.
+                    </p>
+                    <div style="text-align:center; margin:2rem 0;">
+                        <img src="src/images/creative-asesoria-2.jpg" alt="Ahorro fiscal autónomos" style="max-width:260px; width:100%; border-radius:10px; box-shadow:0 2px 12px #0002;" onerror="this.style.display='none'">
+                        <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Ahorro fiscal y asesoría personalizada</div>
+                    </p>
+                    <a href="#services" class="button" style="margin-top: 1.5rem;">Ver mis servicios</a>
                 </article>
             </div>
         </section>
 
         <section class="about section" id="about">
-            <div class="about__container container">
+            <div class="about__container container" id="sociedades">
                 <article class="about__info">
-                    <h1 class="section__title">
-                        Lorem ipsum dolor sit. <br>
-                        <span>About us</span>
-                    </h1>
+                    <h1 class="section__title">Sociedades: orden, criterio y claridad en la gestión</h1>
                     <p class="about__description">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius eveniet doloremque non sit reiciendis magni illo nesciunt numquam.
+                        Trabajo con sociedades mercantiles que no cuentan con grandes departamentos internos, pero que necesitan una contabilidad bien hecha y una visión clara de su situación económica. Mi experiencia como responsable financiero y jefe de administración en multinacionales y empresas de distintos tamaños me permite detectar cuándo una contabilidad no refleja la realidad del negocio.
                     </p>
+                    <div style="text-align:center; margin:2rem 0;">
+                        <img src="src/images/creative-sociedades-1.jpg" alt="Contabilidad clara" style="max-width:220px; width:100%; border-radius:10px; box-shadow:0 2px 12px #0002;" onerror="this.style.display='none'">
+                        <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Contabilidad clara y ordenada</div>
+                    </p>
+                    <ul class="about__list">
+                        <li>Las cuentas no cuadran con bancos, proveedores o clientes</li>
+                        <li>No está claro si la empresa gana o pierde realmente</li>
+                        <li>Hay errores acumulados en la contabilidad</li>
+                        <li>Se necesita ordenar la empresa antes de tomar decisiones importantes</li>
+                    </ul>
+                    <button class="button button-link" onclick="document.getElementById('sociedades-mas').open = true;">Ver más aquí</button>
+                    <details id="sociedades-mas" style="margin-top:1rem;">
+                        <summary style="cursor:pointer; font-weight:bold;">Más información sobre Sociedades</summary>
+                        <p style="margin-top:0.7rem;">Si tienes dudas sobre la situación de tu empresa, puedo analizar tu contabilidad y proponer soluciones prácticas para mejorar la gestión y la toma de decisiones.</p>
+                    </details>
+                    </ul>
+                    <div class="about__responsabilidad" style="margin-top:1.5rem;">
+                        <strong>Responsabilidad y confianza:</strong>
+                        <ul>
+                            <li>Si intervengo en la contabilidad de tu empresa, me hago responsable de mi trabajo y de posibles errores, siempre actuando dentro de la legalidad.</li>
+                            <li>No me desentiendo como otras asesorías cuando surgen problemas con Hacienda.</li>
+                            <li>Si un cliente me pide actuar de manera incorrecta o fraudulenta, no lo haré; mi compromiso es siempre con la legalidad y la transparencia.</li>
+                        </ul>
+                    </div>
+                    <a href="#contacto" class="button" style="margin-top:1.5rem;">Solicitar consulta</a>
                 </article>
-
-                <article class="svg__img about__img" id="img2"></article>
+                <article class="svg__img about__img" id="img2">
+                    <!-- Imagen de reunión con clientes o contabilidad, opcional icono de escudo/confianza -->
+                    <img src="src/images/sociedades.jpg" alt="Reunión con clientes" style="max-width: 320px; width: 100%; border-radius: 12px; box-shadow: 0 2px 12px #0001;" onerror="this.style.display='none'">
+                </article>
             </div>
         </section>
 
         <section class="support section" id="support">
-            <div class="support__container container">
+            <div class="support__container container" id="autonomos">
                 <article class="support__info">
-                    <h1 class="section__title">
-                        Lorem ipsum dolor sit. <br>
-                        <span>Support</span>
-                    </h1>
+                    <h1 class="section__title">Autónomos: cuando algo no cuadra, conviene revisarlo</h1>
                     <p class="support__description">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius eveniet doloremque non sit reiciendis magni illo nesciunt numquam.
+                        Ayudo a autónomos de cualquier actividad, especialmente a quienes trabajan de forma individual y sienten que pagan mucho sin entender por qué. Muchos autónomos solo necesitan declarar cuatro impuestos al año y cumplir con sus obligaciones básicas. Cobrarles mensualidades altas sin aportar valor es innecesario. Yo reviso sus cuentas, compruebo el sistema fiscal más adecuado y asesoro para pagar lo justo. Además, si intervengo, me responsabilizo de mi trabajo y de cualquier incidencia, siempre dentro de la legalidad.
                     </p>
+                    <div style="text-align:center; margin:2rem 0;">
+                        <img src="src/images/creative-autonomos-1.jpg" alt="Revisión fiscal autónomos" style="max-width:220px; width:100%; border-radius:10px; box-shadow:0 2px 12px #0002;" onerror="this.style.display='none'">
+                        <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Revisión fiscal para autónomos</div>
+                    </p>
+                    <ul class="support__list">
+                        <li>Revisar si es más conveniente módulo o estimación objetiva</li>
+                        <li>Evitar pagos excesivos por servicios innecesarios</li>
+                        <li>Asesoramiento transparente y responsable</li>
+                        <li>Optimización real de costes fiscales</li>
+                        <li>Formación práctica para gestionar facturas y obligaciones</li>
+                    </ul>
+                    <button class="button button-link" onclick="document.getElementById('autonomos-mas').open = true;">Ver más aquí</button>
+                    <details id="autonomos-mas" style="margin-top:1rem;">
+                        <summary style="cursor:pointer; font-weight:bold;">Más información para Autónomos</summary>
+                        <p style="margin-top:0.7rem;">Te ayudo a entender tus obligaciones fiscales y a gestionar tus facturas de forma sencilla, para que pagues solo lo justo y evites problemas futuros.</p>
+                    </details>
+                    </ul>
+                    <div class="support__verifasura" style="margin-top:1.5rem;">
+                        <h3>Verificación de facturas y programas de Hacienda: simplificado y sin costes innecesarios</h3>
+                        <p>Actualmente, Hacienda ha anunciado la obligación de realizar verificaciones de facturas para sociedades y autónomos, aplazada hasta 2027. Muchas asesorías cobran por adelantado por este trámite, aunque requiere solo unos pocos pasos. Mi enfoque es práctico: puedo enseñarte a registrar tus facturas directamente desde tu negocio o tu ordenador, utilizando el programa oficial de Hacienda, sin necesidad de comprar ningún software adicional ni pagar costes innecesarios.</p>
+                        <ul>
+                            <li>Registro de facturas de venta de manera simple y segura</li>
+                            <li>Evitar costes adicionales por servicios innecesarios</li>
+                            <li>Aprender a manejar tus propias obligaciones fiscales de forma legal y correcta</li>
+                            <li>Mantener el control real de tus cuentas sin depender de intermediarios</li>
+                        </ul>
+                    </div>
+                    <a href="#contacto" class="button" style="margin-top:1.5rem;">Solicitar consulta</a>
                 </article>
-
-                <article class="svg__img support__img" id="img3"></article>
+                <article class="svg__img support__img" id="img3">
+                    <!-- Iconos de Hacienda, facturas digitales, ordenador mostrando ejemplos -->
+                    <img src="src/images/autonomos.jpg" alt="Facturas digitales" style="max-width: 320px; width: 100%; border-radius: 12px; box-shadow: 0 2px 12px #0001;" onerror="this.style.display='none'">
+                </article>
             </div>
         </section>
 
         <section class="services section" id="services">
-            <h1 class="section__title section__title-center">
-                Lorem ipsum dolor sit. <br>
-                <span>Services</span>
-            </h1>
-
+            <h1 class="section__title section__title-center" id="particulares">Antes de pagar o firmar, conviene entender</h1>
             <div class="services__container container">
                 <article class="services__info">
-                    <h3 class="services__title">Lorem ipsum</h3>
-                    <i class="services__icon bi bi-browser-chrome"></i>
-                    <p class="services__description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus iure neque sed sint, quo consequuntur omnis eius tenetur?</p>
-                    <div>
-                        <a class="button button-link" href="#">see more</a>
-                    </div>
+                    <p class="services__description">
+                        Atiendo a personas particulares que se encuentran perdidas ante un requerimiento, multa, inspección o despido. Muchas veces el problema no es solo económico, sino de falta de información clara. Mi función es revisar la documentación, explicar la situación y ayudar a tomar decisiones con criterio y sin miedo.
+                    </p>
+                    <div style="text-align:center; margin:2rem 0;">
+                        <img src="src/images/creative-particulares-1.jpg" alt="Ayuda a particulares" style="max-width:220px; width:100%; border-radius:10px; box-shadow:0 2px 12px #0002;" onerror="this.style.display='none'">
+                        <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Ayuda y acompañamiento a particulares</div>
+                    </p>
+                    <ul class="services__list">
+                        <li>Revisión de requerimientos</li>
+                        <li>Multas e inspecciones</li>
+                        <li>Despidos y finiquitos</li>
+                        <li>Escritos antes de firmar o pagar</li>
+                    </ul>
+                    <button class="button button-link" onclick="document.getElementById('particulares-mas').open = true;">Ver más aquí</button>
+                    <details id="particulares-mas" style="margin-top:1rem;">
+                        <summary style="cursor:pointer; font-weight:bold;">Más información para Particulares</summary>
+                        <p style="margin-top:0.7rem;">Si tienes dudas legales o económicas, reviso tu documentación y te explico las opciones antes de que tomes una decisión importante.</p>
+                    </details>
+                    </ul>
                 </article>
-                <article class="services__info">
-                    <h3 class="services__title">Lorem ipsum</h3>
-                    <i class="services__icon bi bi-browser-edge"></i>
-                    <p class="services__description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus iure neque sed sint, quo consequuntur omnis eius tenetur?</p>
-                    <div>
-                        <a class="button button-link" href="#">see more</a>
-                    </div>
-                </article>
-                <article class="services__info">
-                    <h3 class="services__title">Lorem ipsum</h3>
-                    <i class="services__icon bi bi-browser-firefox"></i>
-                    <p class="services__description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus iure neque sed sint, quo consequuntur omnis eius tenetur?</p>
-                    <div>
-                        <a class="button button-link" href="#">see more</a>
-                    </div>
+                <article class="svg__img services__img" id="img4">
+                    <!-- Icono de documento legal o asesor explicando a un particular -->
+                    <img src="src/images/particulares.jpg" alt="Asesoría a particulares" style="max-width: 320px; width: 100%; border-radius: 12px; box-shadow: 0 2px 12px #0001;" onerror="this.style.display='none'">
                 </article>
             </div>
         </section>
 
         <section class="app section" id="app">
-            <div class="app__container container">
+            <div class="app__container container" id="como-trabajo">
                 <article class="app__info">
-                    <h2 class="section__title">
-                        Lorem ipsum dolor sit amet <br>
-                        <span>Applications</span>
-                    </h2>
-                    <p class="app__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus quasi ipsam ea perferendis nam eos corrupti, odio quis.</p>
-                    <div class="app__buttons">
-                        <a class="button button-flex" href="#">
-                            <i class="bi bi-apple"></i>
-                            App Store
-                        </a>
-                        <a class="button button-flex" href="#">
-                            <i class="bi bi-google-play"></i>
-                            Google Play
-                        </a>
-                    </div>
+                    <h2 class="section__title">Cómo Trabajo</h2>
+                    <p class="app__description">
+                        Mi forma de trabajar se basa en tres principios: criterio profesional, claridad en la explicación y proporcionalidad en los honorarios. Adapto el trabajo al volumen real y a la complejidad de cada caso, evitando soluciones estándar que no encajan en actividades sencillas. En determinados casos, puedo desplazarme directamente a la empresa para revisar y organizar la contabilidad de forma práctica y operativa. Trabajo con cita previa, por proyectos concretos y con honorarios acordados antes de empezar.
+                    </p>
+                    <div style="text-align:center; margin:2rem 0;">
+                        <img src="src/images/creative-comotrabajo-1.jpg" alt="Trabajo personalizado" style="max-width:220px; width:100%; border-radius:10px; box-shadow:0 2px 12px #0002;" onerror="this.style.display='none'">
+                        <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Trabajo personalizado y adaptado</div>
+                    </p>
+                    <ul class="app__list">
+                        <li>Trabajo presencial o remoto según necesidad</li>
+                        <li>Revisión de nóminas y finiquitos</li>
+                        <li>Optimización de impuestos según tu actividad</li>
+                        <li>Formación básica para gestionar tus facturas y documentos</li>
+                    </ul>
+                    <button class="button button-link" onclick="document.getElementById('como-mas').open = true;">Ver más aquí</button>
+                    <details id="como-mas" style="margin-top:1rem;">
+                        <summary style="cursor:pointer; font-weight:bold;">Más sobre mi forma de trabajar</summary>
+                        <p style="margin-top:0.7rem;">Cada cliente es único. Me adapto a tus necesidades y te explico cada paso para que tengas el control de tu gestión económica.</p>
+                    </details>
+                    </ul>
                 </article>
-
-                <article class="svg__img app__img" id="img4"></article>
+                <article class="svg__img app__img" id="img5">
+                    <!-- Foto trabajando con portátil o asesorando a un cliente -->
+                    <img src="src/images/como-trabajo.jpg" alt="Trabajando con portátil" style="max-width: 320px; width: 100%; border-radius: 12px; box-shadow: 0 2px 12px #0001;" onerror="this.style.display='none'">
+                </article>
             </div>
         </section>
 
         <section class="contact section" id="contact">
-            <div class="contact__container container">
+            <div class="contact__container container" id="contacto">
                 <div>
-                    <article">
-                        <h2 class="contact__title section__title">Contact</h2>
-                        <p class="contact__description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Temporibus iure unde sed quasi ea a ipsam laudantium placeat.</p>
+                    <article>
+                        <h2 class="contact__title section__title">Contacta conmigo</h2>
+                        <p class="contact__description">¿Tienes dudas o quieres asesoramiento para tu negocio? Rellena el formulario o utiliza los medios de contacto disponibles y te responderé lo antes posible.</p>
                     </article>
                 </div>
-
+                <div>
+                    <form class="contact__form" style="display:flex; flex-direction:column; gap:0.7rem; max-width:400px; margin:1.5rem 0;">
+                        <input type="text" name="nombre" placeholder="Nombre" required style="padding:0.7rem; border-radius:6px; border:1px solid #ccc;">
+                        <input type="email" name="email" placeholder="Email" required style="padding:0.7rem; border-radius:6px; border:1px solid #ccc;">
+                        <input type="tel" name="telefono" placeholder="Teléfono" style="padding:0.7rem; border-radius:6px; border:1px solid #ccc;">
+                        <textarea name="mensaje" placeholder="Mensaje" required style="padding:0.7rem; border-radius:6px; border:1px solid #ccc; min-height:80px;"></textarea>
+                        <button type="submit" class="button" style="margin-top:0.5rem;">Enviar mensaje</button>
+                    </form>
+                </div>
                 <div>
                     <article>
                         <ul class="contact__info">
                             <li class="contact__address">
-                                Phone:
-                                <span class="contact__information">+1 - 000 - 0000000</span>
-                            </li>
-                            <li class="contact__address">
                                 Email:
-                                <span class="contact__information">example@email.com</span>
+                                <span class="contact__information">info@duqueconsultoria.es</span>
                             </li>
                             <li class="contact__address">
-                                Address:
-                                <span class="contact__information">Lorem ipsum dolor sit amet consectetur.</span>
+                                Teléfono:
+                                <span class="contact__information">+34 XXXXXXXX</span>
+                            </li>
+                            <li class="contact__address">
+                                WhatsApp:
+                                <a href="https://wa.me/34XXXXXXXX" class="contact__information" target="_blank">Enlace directo</a>
                             </li>
                         </ul>
-                    </article>
-                </div>
-
-                <div>
-                    <article>
                         <div class="contact__button">
-                            <a class="button button-contact" href="#">Contact us</a>
+                            <a class="button button-contact" href="#contacto">Solicitar consulta</a>
+                                                    <button class="button button-contact" onclick="openModal('consultaModal')">Solicitar consulta</button>
+
+                                <!-- Modal Dialog for Solicitar Consulta -->
+                                <div id="consultaModal" class="modal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); align-items:center; justify-content:center;">
+                                    <div style="background:#fff; padding:2rem; border-radius:10px; max-width:400px; width:90%; position:relative; animation:modalFadeIn 0.4s;">
+                                        <button onclick="closeModal('consultaModal')" style="position:absolute; top:10px; right:10px; background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+                                        <h2 style="margin-bottom:1rem;">Solicitar consulta</h2>
+                                        <form style="display:flex; flex-direction:column; gap:0.7rem;">
+                                            <input type="text" name="nombre" placeholder="Nombre" required style="padding:0.7rem; border-radius:6px; border:1px solid #ccc;">
+                                            <input type="email" name="email" placeholder="Email" required style="padding:0.7rem; border-radius:6px; border:1px solid #ccc;">
+                                            <input type="tel" name="telefono" placeholder="Teléfono" style="padding:0.7rem; border-radius:6px; border:1px solid #ccc;">
+                                            <textarea name="mensaje" placeholder="Mensaje" required style="padding:0.7rem; border-radius:6px; border:1px solid #ccc; min-height:80px;"></textarea>
+                                            <button type="submit" class="button" style="margin-top:0.5rem;">Enviar mensaje</button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <!-- Dynamic Testimonials Section -->
+                                <section class="testimonials section" id="testimonios" style="background:#f4f8fb; padding:2.5rem 0;">
+                                    <div class="container">
+                                        <h2 class="section__title section__title-center">Testimonios de clientes</h2>
+                                        <div id="testimonial-content" class="testimonial__content" style="display:flex; flex-direction:column; align-items:center; gap:1.5rem; margin-top:2rem;"></div>
+                                        <div style="text-align:center; margin-top:1rem;">
+                                            <button class="button button-link" onclick="nextTestimonial()">Ver otro testimonio</button>
+                                        </div>
+                                    </div>
+                                </section>
                         </div>
                     </article>
                 </div>
@@ -200,60 +306,149 @@
         <footer class="footer section">
             <div class="footer__container container">
                 <article class="footer__content">
-                    <a href="#" class="footer__logo">Business Name</a>
-                    <p class="footer__description">Lorem ipsum dolor sit.</p>
+                    <a href="#home" class="footer__logo">Servicios y Consultas Duque S.L.</a>
+                    <p class="footer__description">Asesoría profesional para autónomos, sociedades y particulares.</p>
                 </article>
-
                 <article class="footer__content">
-                    <h3 class="footer__title">Lorem ipsum</h3>
+                    <h3 class="footer__title">Enlaces</h3>
                     <ul class="footer__links">
-                        <li><a href="#" class="footer__link">Lorem ipsum</a></li>
-                        <li><a href="#" class="footer__link">Lorem ipsum</a></li>
-                        <li><a href="#" class="footer__link">Lorem ipsum</a></li>
-                        <li><a href="#" class="footer__link">Lorem ipsum</a></li>
+                        <li><a href="#home" class="footer__link">Inicio</a></li>
+                        <li><a href="#sociedades" class="footer__link">Sociedades</a></li>
+                        <li><a href="#autonomos" class="footer__link">Autónomos</a></li>
+                        <li><a href="#particulares" class="footer__link">Particulares</a></li>
+                        <li><a href="#como-trabajo" class="footer__link">Cómo trabajo</a></li>
+                        <li><a href="#sobre-mi" class="footer__link">Sobre mí</a></li>
+                        <li><a href="#contacto" class="footer__link">Contacto</a></li>
                     </ul>
                 </article>
-
                 <article class="footer__content">
-                    <h3 class="footer__title">Lorem ipsum</h3>
+                    <h3 class="footer__title">Contacto</h3>
                     <ul class="footer__links">
-                        <li><a href="#" class="footer__link">Lorem ipsum</a></li>
-                        <li><a href="#" class="footer__link">Lorem ipsum</a></li>
-                        <li><a href="#" class="footer__link">Lorem ipsum</a></li>
+                        <li><a href="mailto:info@duqueconsultoria.es" class="footer__link">info@duqueconsultoria.es</a></li>
+                        <li><a href="tel:+34XXXXXXXX" class="footer__link">+34 XXXXXXXX</a></li>
+                        <li><a href="https://wa.me/34XXXXXXXX" class="footer__link" target="_blank">WhatsApp</a></li>
                     </ul>
                 </article>
-
                 <article class="footer__content">
-                    <h3 class="footer__title">Lorem ipsum</h3>
-                    <ul class="footer__links">
-                        <li><a href="#" class="footer__link">Lorem ipsum</a></li>
-                        <li><a href="#" class="footer__link">Lorem ipsum</a></li>
-                        <li><a href="#" class="footer__link">Lorem ipsum</a></li>
-                    </ul>
+                    <h3 class="footer__title">Sobre mí</h3>
+                    <p class="footer__description">Más de 40 años de experiencia en administración, contabilidad y fiscalidad.</p>
                 </article>
-
                 <article class="footer__social">
-                    <a href="#" class="footer__social-link">
-                        <i class="bi bi-linkedin"></i>
-                    </a>
-                    <a href="#" class="footer__social-link">
-                        <i class="bi bi-instagram"></i>
-                    </a>
-                    <a href="#" class="footer__social-link">
-                        <i class="bi bi-twitter"></i>
-                    </a>
-                    <a href="#" class="footer__social-link">
-                        <i class="bi bi-whatsapp"></i>
-                    </a>
+                    <a href="#" class="footer__social-link"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" class="footer__social-link"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="footer__social-link"><i class="bi bi-twitter"></i></a>
+                    <a href="https://wa.me/34XXXXXXXX" class="footer__social-link"><i class="bi bi-whatsapp"></i></a>
                 </article>
             </div>
-
-            <p class="footer__copy">&#169; All Right Reserved.</p>
+            <p class="footer__copy">&#169; Servicios y Consultas Duque S.L. Todos los derechos reservados.</p>
         </footer>
 
         <a class="scrollup" id="scroll-up" href="#home">
             <i class="scrollup__icon bi bi-arrow-up"></i>
         </a>
+
+        <!-- SOBRE MÍ: Sección separada para destacar experiencia y valores -->
+        <section class="about section" id="sobre-mi" style="background:#f8f8f8; padding:3rem 0;">
+            <div class="about__container container">
+                <article class="about__info">
+                    <h1 class="section__title">Sobre mí</h1>
+                    <p class="about__description">
+                        Soy profesional con más de 40 años de experiencia en administración, contabilidad, fiscalidad y relaciones laborales. He trabajado como responsable financiero y jefe de administración en multinacionales y empresas de distintos tamaños, participando en auditorías, inspecciones de Hacienda, procesos de saneamiento y reorganización empresarial. Esa experiencia me permite aportar hoy una visión práctica, realista y honesta a sociedades, autónomos y particulares que necesitan orden y claridad en su gestión económica. No prometo milagros ni busco volumen. Aporto experiencia, criterio y tranquilidad.
+                    </p>
+                    <button class="button button-link" onclick="document.getElementById('sobremi-mas').open = true;">Ver más aquí</button>
+                    <details id="sobremi-mas" style="margin-top:1rem;">
+                        <summary style="cursor:pointer; font-weight:bold;">Más sobre mi experiencia</summary>
+                        <p style="margin-top:0.7rem;">He participado en auditorías, inspecciones de Hacienda y procesos de reorganización, aportando siempre honestidad y soluciones prácticas.</p>
+                    </details>
+                </article>
+                <article class="svg__img about__img" id="img6">
+                    <!-- Foto profesional en oficina o entorno empresarial -->
+                    <img src="src/images/sobre-mi.jpg" alt="Foto profesional Duque Consultoría" style="max-width: 320px; width: 100%; border-radius: 12px; box-shadow: 0 2px 12px #0001;" onerror="this.style.display='none'">
+                </article>
+            </div>
+        </section>
     </body>
 
+<script>
+// Smooth scroll for anchor links
+document.querySelectorAll('a.nav__link, .footer__link, .scrollup').forEach(link => {
+    link.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href && href.startsWith('#')) {
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    });
+});
+// Modal dialog logic
+function openModal(id) {
+    document.getElementById(id).style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+    document.body.style.overflow = '';
+}
+
+// Dynamic testimonials
+const testimonials = [
+    {
+        name: "María G.",
+        text: "Gracias a Duque Consultoría, entendí mis obligaciones fiscales y ahorré mucho en mi declaración. Trato cercano y profesional.",
+    },
+    {
+        name: "Javier L.",
+        text: "Me ayudaron a poner en orden la contabilidad de mi empresa y ahora tengo claridad para tomar decisiones. 100% recomendable.",
+    },
+    {
+        name: "Lucía P.",
+        text: "Por fin una asesoría que explica todo con claridad y no cobra de más. Muy satisfecha con el servicio.",
+    },
+    {
+        name: "Carlos S.",
+        text: "Me enseñaron a registrar mis facturas y a cumplir con Hacienda sin complicaciones ni costes extra.",
+    }
+];
+let testimonialIndex = 0;
+function showTestimonial(idx) {
+    const t = testimonials[idx];
+    document.getElementById('testimonial-content').innerHTML =
+        `<blockquote style='font-size:1.1rem; color:#333; margin:0 0 0.5rem 0;'>"${t.text}"</blockquote><span style='font-weight:bold; color:#1a4a6a;'>- ${t.name}</span>`;
+}
+function nextTestimonial() {
+    testimonialIndex = (testimonialIndex + 1) % testimonials.length;
+    showTestimonial(testimonialIndex);
+}
+// Show first testimonial on load
+document.addEventListener('DOMContentLoaded', function() {
+    showTestimonial(testimonialIndex);
+});
+
+// Section reveal animation on scroll
+const revealSections = document.querySelectorAll('.section');
+const revealOnScroll = () => {
+    const trigger = window.innerHeight * 0.85;
+    revealSections.forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top < trigger) {
+            sec.style.opacity = 1;
+            sec.style.transform = 'translateY(0)';
+        } else {
+            sec.style.opacity = 0;
+            sec.style.transform = 'translateY(40px)';
+        }
+    });
+};
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('DOMContentLoaded', revealOnScroll);
+// Initial style for animation
+revealSections.forEach(sec => {
+    sec.style.transition = 'opacity 0.7s, transform 0.7s';
+    sec.style.opacity = 0;
+    sec.style.transform = 'translateY(40px)';
+});
+</script>
 </html>
