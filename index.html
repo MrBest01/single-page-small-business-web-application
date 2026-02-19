@@ -42,6 +42,11 @@
                         <li class="nav__item">
                             <a class="nav__link" href="#contacto">Contacto</a>
                         </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="#shop-cart" onclick="showCartTab(event)">
+                                Carrito <span id="cart-count-nav" style="background:#1976d2; color:#fff; border-radius:50%; padding:0.2em 0.6em; font-size:0.95em; margin-left:0.4em; vertical-align:middle;">0</span>
+                            </a>
+                        </li>
                         <i class="change-theme bi bi-toggle-off" id="theme-button"></i>
                     </ul>
                 </div>
@@ -97,10 +102,10 @@
                         <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Contabilidad clara y ordenada</div>
                     </p>
                     <ul class="about__list">
-                        <li>Las cuentas no cuadran con bancos, proveedores o clientes</li>
-                        <li>No está claro si la empresa gana o pierde realmente</li>
-                        <li>Hay errores acumulados en la contabilidad</li>
-                        <li>Se necesita ordenar la empresa antes de tomar decisiones importantes</li>
+                        <li>Las cuentas no cuadran con bancos, proveedores o clientes <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Revisión de cuentas - Sociedades')">Añadir</button></li>
+                        <li>No está claro si la empresa gana o pierde realmente <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Análisis de rentabilidad - Sociedades')">Añadir</button></li>
+                        <li>Hay errores acumulados en la contabilidad <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Corrección de errores contables - Sociedades')">Añadir</button></li>
+                        <li>Se necesita ordenar la empresa antes de tomar decisiones importantes <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Organización empresarial - Sociedades')">Añadir</button></li>
                     </ul>
                     <button class="button button-link" onclick="toggleDetails('sociedades-mas')">Ver más aquí</button>
                     <details id="sociedades-mas" style="margin-top:1rem;">
@@ -137,11 +142,11 @@
                         <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Revisión fiscal para autónomos</div>
                     </p>
                     <ul class="support__list">
-                        <li>Revisar si es más conveniente módulo o estimación objetiva</li>
-                        <li>Evitar pagos excesivos por servicios innecesarios</li>
-                        <li>Asesoramiento transparente y responsable</li>
-                        <li>Optimización real de costes fiscales</li>
-                        <li>Formación práctica para gestionar facturas y obligaciones</li>
+                        <li>Revisar si es más conveniente módulo o estimación objetiva <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Revisión fiscal - Autónomos')">Añadir</button></li>
+                        <li>Evitar pagos excesivos por servicios innecesarios <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Optimización de costes - Autónomos')">Añadir</button></li>
+                        <li>Asesoramiento transparente y responsable <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Asesoramiento fiscal - Autónomos')">Añadir</button></li>
+                        <li>Optimización real de costes fiscales <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Optimización fiscal - Autónomos')">Añadir</button></li>
+                        <li>Formación práctica para gestionar facturas y obligaciones <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Formación fiscal - Autónomos')">Añadir</button></li>
                     </ul>
                     <button class="button button-link" onclick="toggleDetails('autonomos-mas')">Ver más aquí</button>
                     <details id="autonomos-mas" style="margin-top:1rem;">
@@ -180,10 +185,10 @@
                         <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Ayuda y acompañamiento a particulares</div>
                     </p>
                     <ul class="services__list">
-                        <li>Revisión de requerimientos</li>
-                        <li>Multas e inspecciones</li>
-                        <li>Despidos y finiquitos</li>
-                        <li>Escritos antes de firmar o pagar</li>
+                        <li>Revisión de requerimientos <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Revisión de requerimientos - Particulares')">Añadir</button></li>
+                        <li>Multas e inspecciones <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Gestión de multas e inspecciones - Particulares')">Añadir</button></li>
+                        <li>Despidos y finiquitos <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Gestión de despidos y finiquitos - Particulares')">Añadir</button></li>
+                        <li>Escritos antes de firmar o pagar <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Revisión de escritos - Particulares')">Añadir</button></li>
                     </ul>
                     <button class="button button-link" onclick="toggleDetails('particulares-mas')">Ver más aquí</button>
                     <details id="particulares-mas" style="margin-top:1rem;">
@@ -211,10 +216,10 @@
                         <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Trabajo personalizado y adaptado</div>
                     </p>
                     <ul class="app__list">
-                        <li>Trabajo presencial o remoto según necesidad</li>
-                        <li>Revisión de nóminas y finiquitos</li>
-                        <li>Optimización de impuestos según tu actividad</li>
-                        <li>Formación básica para gestionar tus facturas y documentos</li>
+                        <li>Trabajo presencial o remoto según necesidad <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Trabajo presencial/remoto')">Añadir</button></li>
+                        <li>Revisión de nóminas y finiquitos <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Revisión de nóminas y finiquitos')">Añadir</button></li>
+                        <li>Optimización de impuestos según tu actividad <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Optimización de impuestos')">Añadir</button></li>
+                        <li>Formación básica para gestionar tus facturas y documentos <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Formación básica fiscal')">Añadir</button></li>
                     </ul>
                     <button class="button button-link" onclick="toggleDetails('como-mas')">Ver más aquí</button>
                     <details id="como-mas" style="margin-top:1rem;">
@@ -265,7 +270,6 @@
                         </ul>
                         <div class="contact__button">
                             <a class="button button-contact" href="#contacto">Solicitar consulta</a>
-                                                    <button class="button button-contact" onclick="openModal('consultaModal')">Solicitar consulta</button>
 
                                 <!-- Modal Dialog for Solicitar Consulta -->
                                 <div id="consultaModal" class="modal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); align-items:center; justify-content:center;">
@@ -472,5 +476,88 @@ revealSections.forEach(sec => {
     sec.style.opacity = 0;
     sec.style.transform = 'translateY(40px)';
 });
+
+// Tienda de servicios: lógica de carrito
+const cart = [];
+function addToCart(service) {
+    if (!cart.includes(service)) {
+        cart.push(service);
+        renderCart();
+    } else {
+        // Optional: show a message if already in cart
+        alert('Este servicio ya está en el carrito.');
+    }
+}
+function renderCart() {
+    const cartList = document.getElementById('cart-list');
+    const cartSummary = document.getElementById('cart-summary');
+    const cartListTab = document.getElementById('cart-list-tab');
+    const cartSummaryTab = document.getElementById('cart-summary-tab');
+    const cartCountNav = document.getElementById('cart-count-nav');
+    if (cartList) {
+        cartList.innerHTML = '';
+        cart.forEach((item, idx) => {
+            cartList.innerHTML += `<li style='margin-bottom:0.5rem;'>${item} <button style='margin-left:1rem; background:none; border:none; color:#d32f2f; cursor:pointer;' onclick='removeFromCart(${idx})'>Eliminar</button></li>`;
+        });
+    }
+    if (cartSummary) {
+        if (cart.length === 0) {
+            cartSummary.innerHTML = 'No hay servicios en el carrito.';
+        } else {
+            cartSummary.innerHTML = `Servicios seleccionados: <span style='color:#1976d2;'>${cart.length}</span>`;
+        }
+    }
+    // Visual tab summary
+    if (cartListTab) {
+        cartListTab.innerHTML = '';
+        cart.forEach((item, idx) => {
+            cartListTab.innerHTML += `<li style='margin-bottom:0.5rem;'>${item} <button style='margin-left:1rem; background:none; border:none; color:#d32f2f; cursor:pointer;' onclick='removeFromCart(${idx})'>Eliminar</button></li>`;
+        });
+    }
+    if (cartSummaryTab) {
+        if (cart.length === 0) {
+            cartSummaryTab.innerHTML = 'No hay servicios en el carrito.';
+        } else {
+            cartSummaryTab.innerHTML = `Servicios seleccionados: <span style='color:#1976d2;'>${cart.length}</span>`;
+        }
+    }
+    // Update cart count in nav
+    if (cartCountNav) {
+        cartCountNav.textContent = cart.length;
+    }
+}
+function removeFromCart(idx) {
+    cart.splice(idx, 1);
+    renderCart();
+}
+function checkoutCart() {
+    if (cart.length === 0) {
+        alert('El carrito está vacío. Añade algún servicio.');
+        return;
+    }
+    alert('Solicitud enviada para: ' + cart.join(', '));
+    cart.length = 0;
+    renderCart();
+}
+// Carrito tab behavior
+function showCartTab(e) {
+    e.preventDefault();
+    const cartSection = document.getElementById('shop-cart');
+    if (cartSection) {
+        // Scroll to cart section and focus summary
+        cartSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(() => {
+            const cartSummaryTab = document.getElementById('cart-summary-tab');
+            if (cartSummaryTab) {
+                cartSummaryTab.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                cartSummaryTab.style.background = '#fffbe6';
+                cartSummaryTab.style.transition = 'background 0.7s';
+                setTimeout(() => {
+                    cartSummaryTab.style.background = '';
+                }, 1200);
+            }
+        }, 400);
+    }
+}
 </script>
 </html>
