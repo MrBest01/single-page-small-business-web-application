@@ -7,6 +7,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Servicios y Consultas Duque S.L.</title>
+        
+        <!-- EmailJS Config loaded first -->
+        <script src="emailjs-config.js" onerror="console.error('❌ No se pudo cargar emailjs-config.js')"></script>
+
+
+
 
         <!-- Remove these two lines below on the final edition, when you are going to upload the project online, and then run 'npm run build' in the terminal to create the final production version in the dist folder -->
         <script defer src="dist/js/app.js"></script>
@@ -15,6 +21,10 @@
     </head>
 
     <body>
+        <!-- Toast Notification -->
+        <div id="toast-notification" style="position:fixed; bottom:30px; right:30px; background:#4caf50; color:#fff; padding:1.2rem 1.5rem; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.2); z-index:9999; opacity:0; transform:translateY(50px); transition:opacity 0.4s, transform 0.4s; font-weight:500; max-width:300px; word-wrap:break-word;">
+            <span id="toast-message"></span>
+        </div>
         <header class="header" id="header" style="position:fixed; top:0; left:0; width:100%; z-index:100; transition:top 0.4s;">
             <nav class="nav container">
                 <a class="nav__logo" href="#">Servicios y Consultas Duque S.L.</a>
@@ -57,6 +67,11 @@
 
             </nav>
         </header>
+
+        <!-- Botón Flotante de Solicitar Consulta -->
+        <button id="btn-solicitar-flotante" onclick="scrollToContact()" style="position:fixed; top:100px; left:20px; background:#1976d2; color:#fff; border:none; padding:0.8rem 1rem; border-radius:8px; box-shadow:0 4px 12px rgba(25,118,210,0.4); cursor:pointer; z-index:99; font-weight:600; font-size:0.95rem; transition:all 0.3s ease; display:none;" onmouseover="this.style.background='#155aa0'; this.style.boxShadow='0 6px 16px rgba(25,118,210,0.6)';" onmouseout="this.style.background='#1976d2'; this.style.boxShadow='0 4px 12px rgba(25,118,210,0.4)';">
+            📋 Solicitar Consulta
+        </button>
 
         <section class="home section" id="home" style="padding-top:7rem;">
             <div class="home__container container">
@@ -102,10 +117,10 @@
                         <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Contabilidad clara y ordenada</div>
                     </p>
                     <ul class="about__list">
-                        <li>Las cuentas no cuadran con bancos, proveedores o clientes <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Revisión de cuentas - Sociedades')">Añadir</button></li>
-                        <li>No está claro si la empresa gana o pierde realmente <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Análisis de rentabilidad - Sociedades')">Añadir</button></li>
-                        <li>Hay errores acumulados en la contabilidad <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Corrección de errores contables - Sociedades')">Añadir</button></li>
-                        <li>Se necesita ordenar la empresa antes de tomar decisiones importantes <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Organización empresarial - Sociedades')">Añadir</button></li>
+                        <li>Las cuentas no cuadran con bancos, proveedores o clientes <button class="button button-cart" style="margin-left:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#1976d2; color:#fff;" onclick="addToCart('Revisión de cuentas - Sociedades')">Solicitar</button></li>
+                        <li>No está claro si la empresa gana o pierde realmente <button class="button button-cart" style="margin-left:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#1976d2; color:#fff;" onclick="addToCart('Análisis de rentabilidad - Sociedades')">Solicitar</button></li>
+                        <li>Hay errores acumulados en la contabilidad <button class="button button-cart" style="margin-left:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#1976d2; color:#fff;" onclick="addToCart('Corrección de errores contables - Sociedades')">Solicitar</button></li>
+                        <li>Se necesita ordenar la empresa antes de tomar decisiones importantes <button class="button button-cart" style="margin-left:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#1976d2; color:#fff;" onclick="addToCart('Organización empresarial - Sociedades')">Solicitar</button></li>
                     </ul>
                     <button class="button button-link" onclick="toggleDetails('sociedades-mas')">Ver más aquí</button>
                     <details id="sociedades-mas" style="margin-top:1rem;">
@@ -121,7 +136,6 @@
                             <li>Si un cliente me pide actuar de manera incorrecta o fraudulenta, no lo haré; mi compromiso es siempre con la legalidad y la transparencia.</li>
                         </ul>
                     </div>
-                    <a href="#contacto" class="button" style="margin-top:1.5rem;">Solicitar consulta</a>
                 </article>
                 <article class="svg__img about__img" id="img2">
                     <!-- Imagen de reunión con clientes o contabilidad, opcional icono de escudo/confianza -->
@@ -142,11 +156,11 @@
                         <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Revisión fiscal para autónomos</div>
                     </p>
                     <ul class="support__list">
-                        <li>Revisar si es más conveniente módulo o estimación objetiva <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Revisión fiscal - Autónomos')">Añadir</button></li>
-                        <li>Evitar pagos excesivos por servicios innecesarios <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Optimización de costes - Autónomos')">Añadir</button></li>
-                        <li>Asesoramiento transparente y responsable <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Asesoramiento fiscal - Autónomos')">Añadir</button></li>
-                        <li>Optimización real de costes fiscales <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Optimización fiscal - Autónomos')">Añadir</button></li>
-                        <li>Formación práctica para gestionar facturas y obligaciones <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Formación fiscal - Autónomos')">Añadir</button></li>
+                        <li>Revisar si es más conveniente módulo o estimación objetiva <button class="button button-cart" style="margin-left:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#1976d2; color:#fff;" onclick="addToCart('Revisión fiscal - Autónomos')">Solicitar</button></li>
+                        <li>Evitar pagos excesivos por servicios innecesarios <button class="button button-cart" style="margin-left:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#1976d2; color:#fff;" onclick="addToCart('Optimización de costes - Autónomos')">Solicitar</button></li>
+                        <li>Asesoramiento transparente y responsable <button class="button button-cart" style="margin-left:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#1976d2; color:#fff;" onclick="addToCart('Asesoramiento fiscal - Autónomos')">Solicitar</button></li>
+                        <li>Optimización real de costes fiscales <button class="button button-cart" style="margin-left:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#1976d2; color:#fff;" onclick="addToCart('Optimización fiscal - Autónomos')">Solicitar</button></li>
+                        <li>Formación práctica para gestionar facturas y obligaciones <button class="button button-cart" style="margin-left:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#1976d2; color:#fff;" onclick="addToCart('Formación fiscal - Autónomos')">Solicitar</button></li>
                     </ul>
                     <button class="button button-link" onclick="toggleDetails('autonomos-mas')">Ver más aquí</button>
                     <details id="autonomos-mas" style="margin-top:1rem;">
@@ -185,10 +199,10 @@
                         <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Ayuda y acompañamiento a particulares</div>
                     </p>
                     <ul class="services__list">
-                        <li>Revisión de requerimientos <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Revisión de requerimientos - Particulares')">Añadir</button></li>
-                        <li>Multas e inspecciones <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Gestión de multas e inspecciones - Particulares')">Añadir</button></li>
-                        <li>Despidos y finiquitos <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Gestión de despidos y finiquitos - Particulares')">Añadir</button></li>
-                        <li>Escritos antes de firmar o pagar <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Revisión de escritos - Particulares')">Añadir</button></li>
+                        <li>Revisión de requerimientos <button class="button button-cart" style="margin-left:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#1976d2; color:#fff;" onclick="addToCart('Revisión de requerimientos - Particulares')">Solicitar</button></li>
+                        <li>Multas e inspecciones <button class="button button-cart" style="margin-left:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#1976d2; color:#fff;" onclick="addToCart('Gestión de multas e inspecciones - Particulares')">Solicitar</button></li>
+                        <li>Despidos y finiquitos <button class="button button-cart" style="margin-left:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#1976d2; color:#fff;" onclick="addToCart('Gestión de despidos y finiquitos - Particulares')">Solicitar</button></li>
+                        <li>Escritos antes de firmar o pagar <button class="button button-cart" style="margin-left:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#1976d2; color:#fff;" onclick="addToCart('Revisión de escritos - Particulares')">Solicitar</button></li>
                     </ul>
                     <button class="button button-link" onclick="toggleDetails('particulares-mas')">Ver más aquí</button>
                     <details id="particulares-mas" style="margin-top:1rem;">
@@ -216,10 +230,10 @@
                         <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Trabajo personalizado y adaptado</div>
                     </p>
                     <ul class="app__list">
-                        <li>Trabajo presencial o remoto según necesidad <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Trabajo presencial/remoto')">Añadir</button></li>
-                        <li>Revisión de nóminas y finiquitos <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Revisión de nóminas y finiquitos')">Añadir</button></li>
-                        <li>Optimización de impuestos según tu actividad <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Optimización de impuestos')">Añadir</button></li>
-                        <li>Formación básica para gestionar tus facturas y documentos <button class="button button-cart" style="margin-left:0.7rem; padding:0.2em 0.8em; font-size:0.85rem; border-radius:6px;" onclick="addToCart('Formación básica fiscal')">Añadir</button></li>
+                        <li>Trabajo presencial o remoto según necesidad <button class="button button-cart" style="margin-left:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#1976d2; color:#fff;" onclick="addToCart('Trabajo presencial/remoto')">Solicitar</button></li>
+                        <li>Revisión de nóminas y finiquitos <button class="button button-cart" style="margin-left:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#1976d2; color:#fff;" onclick="addToCart('Revisión de nóminas y finiquitos')">Solicitar</button></li>
+                        <li>Optimización de impuestos según tu actividad <button class="button button-cart" style="margin-left:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#1976d2; color:#fff;" onclick="addToCart('Optimización de impuestos')">Solicitar</button></li>
+                        <li>Formación básica para gestionar tus facturas y documentos <button class="button button-cart" style="margin-left:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#1976d2; color:#fff;" onclick="addToCart('Formación básica fiscal')">Solicitar</button></li>
                     </ul>
                     <button class="button button-link" onclick="toggleDetails('como-mas')">Ver más aquí</button>
                     <details id="como-mas" style="margin-top:1rem;">
@@ -244,12 +258,28 @@
                     </article>
                 </div>
                 <div>
-                    <form class="contact__form" style="display:flex; flex-direction:column; gap:0.7rem; max-width:400px; margin:1.5rem 0;">
-                        <input type="text" name="nombre" placeholder="Nombre" required style="padding:0.7rem; border-radius:6px; border:1px solid #ccc;">
-                        <input type="email" name="email" placeholder="Email" required style="padding:0.7rem; border-radius:6px; border:1px solid #ccc;">
-                        <input type="tel" name="telefono" placeholder="Teléfono" style="padding:0.7rem; border-radius:6px; border:1px solid #ccc;">
-                        <textarea name="mensaje" placeholder="Mensaje" required style="padding:0.7rem; border-radius:6px; border:1px solid #ccc; min-height:80px;"></textarea>
-                        <button type="submit" class="button" style="margin-top:0.5rem;">Enviar mensaje</button>
+                    <!-- Resumen de servicios si existen -->
+                    <div id="servicios-resumen" style="display:none; margin-bottom:1.5rem; padding:1rem; background:#eff6ff; border-radius:8px; border-left:4px solid #1976d2;">
+                        <h3 style="margin-top:0; color:#1976d2;">Servicios seleccionados:</h3>
+                        <ul id="servicios-lista" style="list-style:none; padding:0; margin:0.5rem 0;"></ul>
+                    </div>
+
+                    <!-- Campo de consulta personalizada si no hay servicios -->
+                    <div id="consulta-personalizada-container" style="display:none; margin-bottom:1rem; padding:1rem; background:#fff8e1; border-radius:8px; border-left:4px solid #ff9800;">
+                        <p style="margin:0 0 0.5rem 0; color:#f57c00; font-size:0.95rem;">
+                            <strong>💡 Consulta Personalizada:</strong> Si necesitas asesoramiento sobre algo específico que no aparece en los servicios listados, cuéntanos tu caso.
+                        </p>
+                    </div>
+
+                    <form id="contactForm" class="contact__form" style="display:flex; flex-direction:column; gap:0.7rem; max-width:400px; margin:1.5rem 0;">
+                        <input type="text" id="nombre" placeholder="Nombre" required style="padding:0.7rem; border-radius:6px; border:1px solid #ccc;">
+                        <input type="email" id="email" placeholder="Email" required style="padding:0.7rem; border-radius:6px; border:1px solid #ccc;">
+                        <input type="tel" id="telefono" placeholder="Teléfono" style="padding:0.7rem; border-radius:6px; border:1px solid #ccc;">
+                        <textarea id="mensaje" placeholder="Cuéntame tu consulta en detalle..." required style="padding:0.7rem; border-radius:6px; border:1px solid #ccc; min-height:100px;"></textarea>
+                        <div id="tipo-consulta-info" style="font-size:0.85rem; color:#666; padding:0.5rem; background:#f5f5f5; border-radius:6px; text-align:center;">
+                            <span id="tipo-consulta-text">Consulta personalizada</span>
+                        </div>
+                        <button type="button" class="button" style="margin-top:0.5rem;" onclick="sendContactEmail()">Enviar solicitud</button>
                     </form>
                 </div>
                 <div>
@@ -268,36 +298,28 @@
                                 <a href="https://wa.me/34XXXXXXXX" class="contact__information" target="_blank">Enlace directo</a>
                             </li>
                         </ul>
-                        <div class="contact__button">
-                            <a class="button button-contact" href="#contacto">Solicitar consulta</a>
-
-                                <!-- Modal Dialog for Solicitar Consulta -->
-                                <div id="consultaModal" class="modal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); align-items:center; justify-content:center;">
-                                    <div style="background:#fff; padding:2rem; border-radius:10px; max-width:400px; width:90%; position:relative; animation:modalFadeIn 0.4s;">
-                                        <button onclick="closeModal('consultaModal')" style="position:absolute; top:10px; right:10px; background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
-                                        <h2 style="margin-bottom:1rem;">Solicitar consulta</h2>
-                                        <form style="display:flex; flex-direction:column; gap:0.7rem;">
-                                            <input type="text" name="nombre" placeholder="Nombre" required style="padding:0.7rem; border-radius:6px; border:1px solid #ccc;">
-                                            <input type="email" name="email" placeholder="Email" required style="padding:0.7rem; border-radius:6px; border:1px solid #ccc;">
-                                            <input type="tel" name="telefono" placeholder="Teléfono" style="padding:0.7rem; border-radius:6px; border:1px solid #ccc;">
-                                            <textarea name="mensaje" placeholder="Mensaje" required style="padding:0.7rem; border-radius:6px; border:1px solid #ccc; min-height:80px;"></textarea>
-                                            <button type="submit" class="button" style="margin-top:0.5rem;">Enviar mensaje</button>
-                                        </form>
-                                    </div>
-                                </div>
-
-                                <!-- Dynamic Testimonials Section -->
-                                <section class="testimonials section" id="testimonios" style="background:#f4f8fb; padding:2.5rem 0;">
-                                    <div class="container">
-                                        <h2 class="section__title section__title-center">Testimonios de clientes</h2>
-                                        <div id="testimonial-content" class="testimonial__content" style="display:flex; flex-direction:column; align-items:center; gap:1.5rem; margin-top:2rem;"></div>
-                                        <div style="text-align:center; margin-top:1rem;">
-                                            <button class="button button-link" onclick="nextTestimonial()">Ver otro testimonio</button>
-                                        </div>
-                                    </div>
-                                </section>
-                        </div>
                     </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESUMEN DE CARRITO: Sección para mostrar servicios solicitados -->
+        <section class="cart-summary section" id="shop-cart" style="background:#f0f4f8; padding:3rem 0;">
+            <div class="container" style="max-width:800px;">
+                <h2 class="section__title section__title-center" style="margin-bottom:2rem;">Resumen de Consultas Solicitadas</h2>
+                <div style="background:#fff; padding:2rem; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+                    <div id="cart-summary-tab" style="margin-bottom:1.5rem; padding:1rem; background:#eff6ff; border-radius:8px; border-left:4px solid #1976d2;">
+                        No hay servicios solicitados aún.
+                    </div>
+                    <div id="cart-items-display" style="margin:1.5rem 0;">
+                        <h3 style="font-size:1rem; color:#333; margin-bottom:1rem;">Servicios en tu lista:</h3>
+                        <ul id="cart-list-tab" style="list-style:none; padding:0; margin:0;">
+                        </ul>
+                    </div>
+                    <div style="text-align:center; margin-top:2rem; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+                        <button class="button" onclick="checkoutCart()" style="padding:0.8rem 1.5rem;">Enviar Solicitud de Consulta</button>
+                        <a href="#contacto" class="button" style="padding:0.8rem 1.5rem; text-decoration:none; display:inline-block;">Ir a Formulario de Contacto</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -373,6 +395,154 @@
     </body>
 
 <script>
+// Configuración de correo - EmailJS (se carga desde emailjs-config.js)
+const EMAIL_CONFIG = {
+    SERVICE_ID: typeof EMAILJS_SERVICE_ID !== 'undefined' ? EMAILJS_SERVICE_ID : 'gmail',
+    TEMPLATE_ID: typeof EMAILJS_TEMPLATE_ID !== 'undefined' ? EMAILJS_TEMPLATE_ID : 'your_template_id',
+    RECIPIENT_EMAIL: typeof RECIPIENT_EMAIL !== 'undefined' ? RECIPIENT_EMAIL : 'josemanuelduquematoso@gmail.com'
+};
+
+// Función para enviar correo de contacto
+function sendContactEmail() {
+    // Verificar que EmailJS esté inicializado
+    if (typeof emailjs === 'undefined') {
+        showToast('❌ EmailJS no está configurado. Consulta EMAILJS_SETUP.md para instrucciones.');
+        return;
+    }
+    
+    const nombre = document.getElementById('nombre').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const telefono = document.getElementById('telefono').value.trim();
+    const mensaje = document.getElementById('mensaje').value.trim();
+    
+    // Validar campos
+    if (!nombre || !email || !mensaje) {
+        showToast('❌ Por favor, rellena todos los campos requeridos');
+        return;
+    }
+    
+    // Obtener servicios del carrito o de sessionStorage
+    let servicesText = 'Consulta personalizada - Sin servicios específicos';
+    
+    // Primero, buscar en el carrito actual
+    if (cart && cart.length > 0) {
+        servicesText = cart.join('\n- ');
+    } else {
+        // Si no hay carrito, buscar en sessionStorage
+        const pendingServices = sessionStorage.getItem('pendingServices');
+        if (pendingServices) {
+            try {
+                const services = JSON.parse(pendingServices);
+                if (services && services.length > 0) {
+                    servicesText = services.join('\n- ');
+                }
+            } catch (e) {
+                console.error('Error parsing pending services:', e);
+            }
+        }
+    }
+    
+    // Preparar datos para EmailJS
+    const templateParams = {
+        to_email: EMAIL_CONFIG.RECIPIENT_EMAIL,
+        from_name: nombre,
+        from_email: email,
+        phone: telefono || 'No proporcionado',
+        message: mensaje,
+        services: servicesText,
+        user_email: email  // Copiar al usuario también
+    };
+    
+    // Mostrar estado de envío
+    showToast('📧 Enviando solicitud...');
+    
+    // Enviar correo a través de EmailJS
+    emailjs.send(EMAIL_CONFIG.SERVICE_ID, EMAIL_CONFIG.TEMPLATE_ID, templateParams)
+        .then(function(response) {
+            console.log('Correo enviado exitosamente', response.status, response.text);
+            showToast('✓ ¡Solicitud enviada correctamente! Te responderemos pronto.');
+            
+            // Limpiar formulario
+            document.getElementById('contactForm').reset();
+            
+            // Limpiar carrito
+            cart.length = 0;
+            sessionStorage.removeItem('pendingServices');
+            renderCart();
+            
+            // Scroll a arriba
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, function(error) {
+            console.error('Error al enviar correo:', error);
+            showToast('⚠️ Error al enviar. Intenta nuevamente o contacta directamente.');
+        });
+}
+
+// Botón flotante de Solicitar Consulta
+function scrollToContact() {
+    const contactSection = document.getElementById('contacto');
+    if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth' });
+        // Highlight the button area briefly
+        const btn = document.getElementById('btn-solicitar-flotante');
+        if (btn) {
+            btn.style.background = '#0d47a1';
+            setTimeout(() => {
+                btn.style.background = '#1976d2';
+            }, 300);
+        }
+    }
+}
+
+// Mostrar/ocultar botón flotante según scroll
+window.addEventListener('scroll', function() {
+    const btn = document.getElementById('btn-solicitar-flotante');
+    const contactSection = document.getElementById('contacto');
+    
+    if (btn && contactSection) {
+        const contactRect = contactSection.getBoundingClientRect();
+        // Si la sección de contacto está visible en la ventana, ocultar el botón
+        if (contactRect.top < window.innerHeight && contactRect.bottom > 0) {
+            btn.style.display = 'none';
+        } else {
+            btn.style.display = 'block';
+        }
+    }
+});
+
+// Inicializar visibilidad del botón al cargar
+window.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('btn-solicitar-flotante');
+    const contactSection = document.getElementById('contacto');
+    
+    if (btn && contactSection) {
+        const contactRect = contactSection.getBoundingClientRect();
+        if (contactRect.top < window.innerHeight && contactRect.bottom > 0) {
+            btn.style.display = 'none';
+        } else {
+            btn.style.display = 'block';
+        }
+    }
+    
+    renderCart();  // Esto actualizará la sección de contacto según el carrito
+});
+
+// Toast notification function
+function showToast(message, duration = 3000) {
+    const toast = document.getElementById('toast-notification');
+    const toastMessage = document.getElementById('toast-message');
+    if (toast && toastMessage) {
+        toastMessage.textContent = message;
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateY(0)';
+        
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(50px)';
+        }, duration);
+    }
+}
+
 // Toggle details for 'Ver más aquí' buttons
 function toggleDetails(id) {
     var el = document.getElementById(id);
@@ -409,49 +579,10 @@ window.addEventListener('scroll', function() {
     }
     lastScrollY = window.scrollY;
 });
-// Modal dialog logic
-function openModal(id) {
-    document.getElementById(id).style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-}
-function closeModal(id) {
-    document.getElementById(id).style.display = 'none';
-    document.body.style.overflow = '';
-}
+// Modal dialog logic - REMOVED (no usado)
 
-// Dynamic testimonials
-const testimonials = [
-    {
-        name: "María G.",
-        text: "Gracias a Duque Consultoría, entendí mis obligaciones fiscales y ahorré mucho en mi declaración. Trato cercano y profesional.",
-    },
-    {
-        name: "Javier L.",
-        text: "Me ayudaron a poner en orden la contabilidad de mi empresa y ahora tengo claridad para tomar decisiones. 100% recomendable.",
-    },
-    {
-        name: "Lucía P.",
-        text: "Por fin una asesoría que explica todo con claridad y no cobra de más. Muy satisfecha con el servicio.",
-    },
-    {
-        name: "Carlos S.",
-        text: "Me enseñaron a registrar mis facturas y a cumplir con Hacienda sin complicaciones ni costes extra.",
-    }
-];
-let testimonialIndex = 0;
-function showTestimonial(idx) {
-    const t = testimonials[idx];
-    document.getElementById('testimonial-content').innerHTML =
-        `<blockquote style='font-size:1.1rem; color:#333; margin:0 0 0.5rem 0;'>"${t.text}"</blockquote><span style='font-weight:bold; color:#1a4a6a;'>- ${t.name}</span>`;
-}
-function nextTestimonial() {
-    testimonialIndex = (testimonialIndex + 1) % testimonials.length;
-    showTestimonial(testimonialIndex);
-}
-// Show first testimonial on load
-document.addEventListener('DOMContentLoaded', function() {
-    showTestimonial(testimonialIndex);
-});
+// Dynamic testimonials - REMOVED
+// Keep empty space for reference
 
 // Section reveal animation on scroll
 const revealSections = document.querySelectorAll('.section');
@@ -477,15 +608,17 @@ revealSections.forEach(sec => {
     sec.style.transform = 'translateY(40px)';
 });
 
-// Tienda de servicios: lógica de carrito
+// Tienda de servicios: lógica de carrito mejorada
 const cart = [];
 function addToCart(service) {
     if (!cart.includes(service)) {
         cart.push(service);
         renderCart();
+        // Show success toast
+        showToast(`✓ ${service} agregado a tu consulta`);
     } else {
-        // Optional: show a message if already in cart
-        alert('Este servicio ya está en el carrito.');
+        // Show info toast if already in cart
+        showToast('Este servicio ya está en tu lista de consultas');
     }
 }
 function renderCart() {
@@ -494,6 +627,11 @@ function renderCart() {
     const cartListTab = document.getElementById('cart-list-tab');
     const cartSummaryTab = document.getElementById('cart-summary-tab');
     const cartCountNav = document.getElementById('cart-count-nav');
+    const serviciosResumen = document.getElementById('servicios-resumen');
+    const serviciosLista = document.getElementById('servicios-lista');
+    const consultaPersonalizadaContainer = document.getElementById('consulta-personalizada-container');
+    const tipoConsultaText = document.getElementById('tipo-consulta-text');
+    
     if (cartList) {
         cartList.innerHTML = '';
         cart.forEach((item, idx) => {
@@ -510,34 +648,65 @@ function renderCart() {
     // Visual tab summary
     if (cartListTab) {
         cartListTab.innerHTML = '';
-        cart.forEach((item, idx) => {
-            cartListTab.innerHTML += `<li style='margin-bottom:0.5rem;'>${item} <button style='margin-left:1rem; background:none; border:none; color:#d32f2f; cursor:pointer;' onclick='removeFromCart(${idx})'>Eliminar</button></li>`;
-        });
+        if (cart.length === 0) {
+            cartListTab.innerHTML = '<li style="color:#999; font-style:italic;">Sin servicios solicitados aún</li>';
+        } else {
+            cart.forEach((item, idx) => {
+                cartListTab.innerHTML += `<li style='margin-bottom:0.8rem; padding:0.7rem; background:#f5f5f5; border-radius:6px; display:flex; justify-content:space-between; align-items:center;'><span>${item}</span> <button style='margin-left:1rem; background:none; border:none; color:#d32f2f; cursor:pointer; font-size:0.9rem;' title='Eliminar' onclick='removeFromCart(${idx})'>✕ Eliminar</button></li>`;
+            });
+        }
     }
     if (cartSummaryTab) {
         if (cart.length === 0) {
-            cartSummaryTab.innerHTML = 'No hay servicios en el carrito.';
+            cartSummaryTab.innerHTML = '<strong>Estado:</strong> Sin servicios solicitados aún. Haz clic en "Solicitar" para agregar consultas.';
         } else {
-            cartSummaryTab.innerHTML = `Servicios seleccionados: <span style='color:#1976d2;'>${cart.length}</span>`;
+            cartSummaryTab.innerHTML = `<strong style='color:#1976d2;'>✓ ${cart.length} ${cart.length === 1 ? 'consulta' : 'consultas'} solicitada${cart.length === 1 ? '' : 's'}</strong> - Listo para enviar tu solicitud de asesoría.`;
         }
     }
     // Update cart count in nav
     if (cartCountNav) {
         cartCountNav.textContent = cart.length;
     }
+    
+    // Actualizar sección de contacto según carrito
+    if (serviciosResumen && serviciosLista && consultaPersonalizadaContainer && tipoConsultaText) {
+        if (cart.length > 0) {
+            // Mostrar resumen de servicios
+            serviciosResumen.style.display = 'block';
+            serviciosLista.innerHTML = '';
+            cart.forEach(service => {
+                serviciosLista.innerHTML += `<li style='margin:0.3rem 0; padding-left:1.5rem;'>✓ ${service}</li>`;
+            });
+            consultaPersonalizadaContainer.style.display = 'none';
+            tipoConsultaText.textContent = `Servicios: ${cart.length} solicitado${cart.length === 1 ? '' : 's'}`;
+        } else {
+            // Mostrar consulta personalizada
+            serviciosResumen.style.display = 'none';
+            consultaPersonalizadaContainer.style.display = 'block';
+            tipoConsultaText.textContent = 'Consulta personalizada';
+        }
+    }
 }
 function removeFromCart(idx) {
-    cart.splice(idx, 1);
+    const removed = cart.splice(idx, 1)[0];
     renderCart();
+    showToast(`✓ ${removed} eliminado de tu solicitud`);
 }
 function checkoutCart() {
     if (cart.length === 0) {
-        alert('El carrito está vacío. Añade algún servicio.');
+        showToast('❌ Agrega al menos un servicio a tu solicitud');
         return;
     }
-    alert('Solicitud enviada para: ' + cart.join(', '));
-    cart.length = 0;
-    renderCart();
+    
+    // Scroll to contact form
+    const contactSection = document.getElementById('contacto');
+    if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth' });
+        showToast('✓ Rellena el formulario con tus datos para completar la solicitud');
+        
+        // Store cart items to send with email
+        sessionStorage.setItem('pendingServices', JSON.stringify(cart));
+    }
 }
 // Carrito tab behavior
 function showCartTab(e) {
@@ -553,11 +722,69 @@ function showCartTab(e) {
                 cartSummaryTab.style.background = '#fffbe6';
                 cartSummaryTab.style.transition = 'background 0.7s';
                 setTimeout(() => {
-                    cartSummaryTab.style.background = '';
+                    cartSummaryTab.style.background = '#eff6ff';
                 }, 1200);
             }
         }, 400);
     }
 }
+</script>
+
+<!-- EmailJS Library - Load at end of body for guaranteed availability -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js" async></script>
+
+<!-- EmailJS Initialization - Runs after library loads -->
+<script>
+// Wait for EmailJS to load and initialize
+function initEmailJS() {
+    console.log('🔍 Verificando EmailJS...');
+    
+    // Check if EmailJS library is available
+    if (typeof window.emailjs === 'undefined') {
+        console.warn('⏳ EmailJS aún no está disponible, reintentando...');
+        setTimeout(initEmailJS, 300);
+        return;
+    }
+    
+    // Check if config keys are available
+    if (typeof window.EMAILJS_PUBLIC_KEY === 'undefined') {
+        console.error('❌ EMAILJS_PUBLIC_KEY no definida en emailjs-config.js');
+        return;
+    }
+    
+    // Initialize EmailJS with public key
+    try {
+        window.emailjs.init(window.EMAILJS_PUBLIC_KEY);
+        console.log('✓ EmailJS inicializado correctamente');
+        console.log('  Public Key:', window.EMAILJS_PUBLIC_KEY.substring(0, 10) + '...');
+    } catch (error) {
+        console.error('❌ Error al inicializar EmailJS:', error.message);
+    }
+}
+
+// Start initialization after a brief delay to allow library to load
+setTimeout(initEmailJS, 100);
+
+// Also try on DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof window.emailjs !== 'undefined') {
+        console.log('✓ EmailJS disponible en DOMContentLoaded');
+    } else {
+        console.warn('⏳ EmailJS aún no disponible en DOMContentLoaded, esperando...');
+        setTimeout(initEmailJS, 500);
+    }
+});
+
+// Final fallback on window load
+window.addEventListener('load', function() {
+    if (typeof window.emailjs === 'undefined') {
+        console.error('❌ EmailJS no se ha cargado. Verifica:');
+        console.error('   - El CDN de EmailJS está accesible');
+        console.error('   - No hay bloqueadores de scripts/publicidad');
+        console.error('   - Abre F12 > Network y busca "index.min.js"');
+    } else {
+        console.log('✓ EmailJS disponible en window.load');
+    }
+});
 </script>
 </html>
