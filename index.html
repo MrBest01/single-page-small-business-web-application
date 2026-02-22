@@ -176,13 +176,7 @@
                     </details>
                     </ul>
                     <div class="support__verifasura" style="margin-top:1.5rem;">
-                        <h3>Verificación de facturas y programas de Hacienda: sencillo y sin sobrecostes</h3>
-                        <p>Te acompaño en el registro de facturas con el programa oficial y te explico los pasos para que no dependas de software extra.</p>
-                        <ul>
-                            <li>Registro simple y seguro de facturas</li>
-                            <li>Evitar costes por servicios innecesarios</li>
-                            <li>Control real de tus cuentas</li>
-                        </ul>
+                        <!-- Sección eliminada según solicitud -->
                     </div>
                     <a href="#contacto" class="button" style="margin-top:1.5rem;">Solicitar consulta</a>
                 </article>
@@ -194,9 +188,9 @@
         </section>
 
         <section class="services section" id="services">
-            <h1 class="section__title section__title-center" id="particulares">Antes de pagar o firmar, conviene entender</h1>
             <div class="services__container container">
                 <article class="services__info">
+                    <h1 class="section__title section__title-center" id="particulares" style="text-align:center;">Antes de pagar o firmar, conviene entender</h1>
                     <p class="services__description">
                         Reviso requerimientos, multas, inspecciones o despidos, explico opciones y te ayudo a decidir con calma.
                     </p>
@@ -227,25 +221,41 @@
             </div>
         </section>
 
+        <section class="facturas section" id="facturas" style="padding-top:3rem;">
+            <div class="container" style="margin-top:1.5rem;">
+                <h3 style="text-align:center; margin-bottom:2rem;">Verificación de facturas y programas de Hacienda: sencillo y sin sobrecostes</h3>
+                <ul class="facturas__list" style="max-width:600px; margin:0 auto;">
+                    <li style="margin-bottom:1.5rem;">Registro simple y seguro de facturas<br>
+                        <button class="button button-cart" style="margin-top:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Registro de facturas')">Añadir</button>
+                    </li>
+                    <hr class="service-divider">
+                    <li style="margin-bottom:1.5rem;">Revisión de facturas emitidas y recibidas, comprobación de su validez y compatibilidad con los programas oficiales de Hacienda.<br>
+                        <button class="button button-cart" style="margin-top:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Verificación de facturas')">Añadir</button>
+                    </li>
+                    <hr class="service-divider">
+                    <li style="margin-bottom:1.5rem;">Asesoramiento para la presentación de modelos fiscales, ayuda en el uso de programas de Hacienda y resolución de incidencias.<br>
+                        <button class="button button-cart" style="margin-top:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Asesoramiento modelos fiscales')">Añadir</button>
+                    </li>
+                    <hr class="service-divider">
+                    <li style="margin-bottom:1.5rem;">Formación para el manejo de facturas electrónicas y programas de gestión fiscal.<br>
+                        <button class="button button-cart" style="margin-top:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Formación facturas electrónicas')">Añadir</button>
+                    </li>
+                </ul>
+            </div>
+        </section>
         <section class="app section" id="app">
             <div class="app__container container" id="como-trabajo">
                 <article class="app__info">
                     <h2 class="section__title">Cómo Trabajo</h2>
                     <p class="app__description">
-                        Trabajo por proyectos, con honorarios claros y explicaciones simples. Presencial o remoto según tu caso.
+                        Mi trabajo se basa en la revisión y optimización de la documentación, cuentas y procesos, adaptando cada solución a las necesidades reales de sociedades, autónomos y particulares. Ofrezco acompañamiento personalizado, explicaciones claras y propuestas prácticas para que tomes decisiones informadas, tanto presencial como de forma remota.
                     </p>
                     <div style="text-align:center; margin:2rem 0;">
                         <img src="src/images/creative-comotrabajo-1.jpg" alt="Trabajo personalizado" style="max-width:220px; width:100%; border-radius:10px; box-shadow:0 2px 12px #0002;" onerror="this.style.display='none'">
-                        <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Trabajo personalizado y adaptado</div>
+                        <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Acompañamiento profesional y soluciones a medida</div>
                     </p>
                     <ul class="app__list">
-                        <li>Trabajo presencial o remoto según necesidad <button class="button button-cart" style="margin-left:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Trabajo presencial/remoto')">Añadir</button></li>
-                        <hr class="service-divider">
-                        <li>Revisión de nóminas y finiquitos <button class="button button-cart" style="margin-left:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Revisión de nóminas y finiquitos')">Añadir</button></li>
-                        <hr class="service-divider">
-                        <li>Optimización de impuestos según tu actividad <button class="button button-cart" style="margin-left:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Optimización de impuestos')">Añadir</button></li>
-                        <hr class="service-divider">
-                        <li>Formación básica para gestionar tus facturas y documentos <button class="button button-cart" style="margin-left:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Formación básica fiscal')">Añadir</button></li>
+                        <!-- Lista eliminada según solicitud -->
                     </ul>
                     <button class="button button-link" onclick="toggleDetails('como-mas')">Ver más aquí</button>
                     <details id="como-mas" style="margin-top:1rem;">
