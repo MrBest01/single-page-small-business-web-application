@@ -1,824 +1,426 @@
 <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios y Consultas Duque S.L. · Asesoría para autónomos, sociedades y particulares</title>
+    <meta name="description" content="Asesoría financiera y fiscal con más de 40 años de experiencia. Elige los servicios que necesitas y solicita tu presupuesto sin compromiso.">
+    <meta name="theme-color" content="#123c5a">
 
-<!-- Fork this repository for free:  https://github.com/reza-azimifar -->
+    <!-- Aplica el tema guardado antes de pintar para evitar parpadeos -->
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem("duque-theme");
+                if (t === "dark" || (!t && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+                    document.documentElement.setAttribute("data-theme", "dark");
+                }
+            } catch (e) {}
+        })();
+    </script>
 
-<html dir="ltr" lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Servicios y Consultas Duque S.L.</title>
-        
-        <!-- EmailJS Config loaded first -->
-        <script src="emailjs-config.js" onerror="console.error('❌ No se pudo cargar emailjs-config.js')"></script>
+    <link rel="stylesheet" href="src/css/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/css/main.css">
 
+    <!-- Configuración de EmailJS (ver EMAILJS_SETUP.md) -->
+    <script src="emailjs-config.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
+    <!-- Catálogo de servicios (editable) y lógica de la página -->
+    <script defer src="assets/js/services.js"></script>
+    <script defer src="assets/js/app.js"></script>
+</head>
 
+<body>
+    <a class="skip-link" href="#servicios">Saltar a los servicios</a>
 
-        <!-- Remove these two lines below on the final edition, when you are going to upload the project online, and then run 'npm run build' in the terminal to create the final production version in the dist folder -->
-        <script defer src="dist/js/app.js"></script>
-        <link href="dist/js/../css/styles.css" rel="stylesheet">
-        <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-    </head>
+    <!-- ================= CABECERA ================= -->
+    <header class="header" id="header">
+        <nav class="nav container" aria-label="Principal">
+            <a class="brand" href="#inicio" aria-label="Servicios y Consultas Duque, inicio">
+                <span class="brand__mark" aria-hidden="true">D</span>
+                <span class="brand__text">
+                    <strong>Duque</strong>
+                    <small>Servicios y Consultas S.L.</small>
+                </span>
+            </a>
 
-    <body class="theme-coastal">
-        <!-- Toast Notification -->
-        <div id="toast-notification" style="position:fixed; bottom:30px; right:30px; background:#4caf50; color:#fff; padding:1.2rem 1.5rem; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.2); z-index:9999; opacity:0; transform:translateY(50px); transition:opacity 0.4s, transform 0.4s; font-weight:500; max-width:300px; word-wrap:break-word;">
-            <span id="toast-message"></span>
-        </div>
-        <header class="header" id="header" style="position:fixed; top:0; left:0; width:100%; z-index:100; transition:top 0.4s;">
-            <nav class="nav container">
-                <a class="nav__logo" href="#">Servicios y Consultas Duque S.L.</a>
+            <ul class="nav__list" id="nav-menu">
+                <li><a class="nav__link" href="#servicios">Servicios</a></li>
+                <li><a class="nav__link" href="#como-trabajo">Cómo trabajo</a></li>
+                <li><a class="nav__link" href="#sobre-mi">Sobre mí</a></li>
+                <li><a class="nav__link" href="#contacto">Contacto</a></li>
+            </ul>
 
-                <div class="nav__menu" id="nav-menu">
-                    <ul class="nav__list">
-                        <li class="nav__item">
-                            <a class="nav__link" href="#home">Inicio</a>
-                        </li>
-                        <li class="nav__item">
-                            <a class="nav__link" href="#sociedades">Sociedades</a>
-                        </li>
-                        <li class="nav__item">
-                            <a class="nav__link" href="#autonomos">Autónomos</a>
-                        </li>
-                        <li class="nav__item">
-                            <a class="nav__link" href="#particulares">Particulares</a>
-                        </li>
-                        <li class="nav__item">
-                            <a class="nav__link" href="#como-trabajo">Cómo trabajo</a>
-                        </li>
-                        <li class="nav__item">
-                            <a class="nav__link" href="#sobre-mi">Sobre mí</a>
-                        </li>
-                        <li class="nav__item">
-                            <a class="nav__link" href="#contacto">Contacto</a>
-                        </li>
-                        <li class="nav__item">
-                            <a class="nav__link" href="#shop-cart" onclick="showCartTab(event)">
-                                Carrito <span id="cart-count-nav" style="background:#1976d2; color:#fff; border-radius:50%; padding:0.2em 0.6em; font-size:0.95em; margin-left:0.4em; vertical-align:middle;">0</span>
-                            </a>
-                        </li>
-                        <i class="change-theme bi bi-toggle-off" id="theme-button"></i>
+            <div class="nav__actions">
+                <button class="icon-btn" id="theme-toggle" type="button" aria-label="Cambiar a modo oscuro">
+                    <i class="bi bi-moon-stars" aria-hidden="true"></i>
+                </button>
+                <button class="cart-btn" id="cart-open" type="button" aria-haspopup="dialog" aria-controls="cart-drawer">
+                    <i class="bi bi-bag" aria-hidden="true"></i>
+                    <span class="cart-btn__label">Mi solicitud</span>
+                    <span class="badge" data-cart-count aria-label="servicios seleccionados">0</span>
+                </button>
+                <button class="icon-btn nav__toggle" id="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-menu">
+                    <i class="bi bi-list" aria-hidden="true"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ================= PORTADA ================= -->
+        <section class="hero" id="inicio">
+            <div class="container hero__grid">
+                <div class="hero__content">
+                    <p class="eyebrow"><i class="bi bi-award" aria-hidden="true"></i> Más de 40 años de experiencia</p>
+                    <h1 class="hero__title">Asesoría financiera y fiscal para <span class="text-accent">autónomos, sociedades y particulares</span></h1>
+                    <p class="hero__lead">
+                        Ordeno tus cuentas, optimizo tus impuestos y te explico tu situación económica con claridad,
+                        para que pagues solo lo justo y decidas con tranquilidad.
+                    </p>
+                    <div class="hero__cta">
+                        <a class="btn btn--primary btn--lg" href="#servicios">
+                            Elegir servicios <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                        </a>
+                        <a class="btn btn--ghost btn--lg" href="#contacto">Consulta personalizada</a>
+                    </div>
+                    <ul class="hero__trust">
+                        <li><i class="bi bi-shield-check" aria-hidden="true"></i> Siempre dentro de la legalidad</li>
+                        <li><i class="bi bi-chat-dots" aria-hidden="true"></i> Explicaciones claras</li>
+                        <li><i class="bi bi-laptop" aria-hidden="true"></i> Presencial o en remoto</li>
                     </ul>
                 </div>
 
-                <div class="nav__toggle" id="nav-toggle">
-                    <i class="bi bi-list-nested"></i>
+                <aside class="hero__card" aria-label="Cómo solicitar un presupuesto">
+                    <h2 class="hero__card-title">Pide tu presupuesto en 3 pasos</h2>
+                    <ol class="steps-mini">
+                        <li>
+                            <span class="steps-mini__num">1</span>
+                            <div><strong>Elige los servicios</strong><span>Añade a tu solicitud los que necesites.</span></div>
+                        </li>
+                        <li>
+                            <span class="steps-mini__num">2</span>
+                            <div><strong>Revisa tu selección</strong><span>Quita o añade lo que quieras, cuando quieras.</span></div>
+                        </li>
+                        <li>
+                            <span class="steps-mini__num">3</span>
+                            <div><strong>Envía tu solicitud</strong><span>Te respondo con un presupuesto sin compromiso.</span></div>
+                        </li>
+                    </ol>
+                    <p class="hero__card-note"><i class="bi bi-info-circle" aria-hidden="true"></i> Sin pagos online. Sin compromiso.</p>
+                </aside>
+            </div>
+        </section>
+
+        <!-- ================= SERVICIOS ================= -->
+        <section class="section" id="servicios" aria-labelledby="servicios-title">
+            <div class="container">
+                <header class="section__head">
+                    <p class="eyebrow">Servicios</p>
+                    <h2 class="section__title" id="servicios-title">¿En qué te puedo ayudar?</h2>
+                    <p class="section__lead">Filtra por tu caso, añade los servicios que te interesan y envíame la solicitud. Puedes combinar servicios de distintas categorías.</p>
+                </header>
+
+                <div class="toolbar">
+                    <div class="filters" id="filters" role="group" aria-label="Filtrar servicios por categoría">
+                        <!-- generado por app.js -->
+                    </div>
+                    <label class="search">
+                        <i class="bi bi-search" aria-hidden="true"></i>
+                        <span class="visually-hidden">Buscar un servicio</span>
+                        <input type="search" id="service-search" placeholder="Buscar: factura, multa, despido…" autocomplete="off">
+                    </label>
                 </div>
 
-            </nav>
-        </header>
+                <div class="category-intro" id="category-intro" aria-live="polite" hidden></div>
 
-        <!-- Botón Flotante de Solicitar Consulta -->
-        <button id="btn-solicitar-flotante" onclick="scrollToContact()" style="position:fixed; top:100px; left:20px; background:#1976d2; color:#fff; border:none; padding:0.8rem 1rem; border-radius:8px; box-shadow:0 4px 12px rgba(25,118,210,0.4); cursor:pointer; z-index:99; font-weight:600; font-size:0.95rem; transition:all 0.3s ease; display:none;" onmouseover="this.style.background='#155aa0'; this.style.boxShadow='0 6px 16px rgba(25,118,210,0.6)';" onmouseout="this.style.background='#1976d2'; this.style.boxShadow='0 4px 12px rgba(25,118,210,0.4)';">
-            📋 Solicitar Consulta
-        </button>
-
-        <section class="home section" id="home" style="padding-top:7rem;">
-            <div class="home__container container">
-                <article class="svg__img home__img" id="img1">
-                    <!-- Imagen profesional o representativa de consultoría/empresa pequeña -->
-                    <img src="src/images/consultoria.jpg" alt="Consultoría Duque" style="max-width: 320px; width: 100%; border-radius: 12px; box-shadow: 0 2px 12px #0001;" onerror="this.style.display='none'">
-                </article>
-                <article class="home__info">
-                    <h1 class="home__title">
-                       Asesoría para Autónomos y Sociedades
-                    </h1>
-                    <h2 class="home__subtitle" style="font-weight: 400; font-size: 1.3rem; margin-top: 1rem;">
-                        Criterio financiero y fiscal para autónomos, sociedades y particulares.
-                    </h2>
-                    <p class="home__description" style="margin-top: 1.5rem;">
-                        Más de 40 años de experiencia para ordenar cuentas, optimizar impuestos y dar claridad a tu situación económica.
-                    </p>
-                    <div style="text-align:center; margin:2rem 0;">
-                        <img src="src/images/creative-asesoria-1.jpg" alt="Organización de cuentas" style="max-width:260px; width:100%; border-radius:10px; box-shadow:0 2px 12px #0002;" onerror="this.style.display='none'">
-                        <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Organización y revisión de cuentas</div>
-                    </p>
-                    <p class="home__description" style="margin-top: 1rem;">
-                        Reviso tu régimen y tus obligaciones para que pagues solo lo justo, sin cuotas innecesarias.
-                    </p>
-                    <div style="text-align:center; margin:2rem 0;">
-                        <img src="src/images/creative-asesoria-2.jpg" alt="Ahorro fiscal autónomos" style="max-width:260px; width:100%; border-radius:10px; box-shadow:0 2px 12px #0002;" onerror="this.style.display='none'">
-                        <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Ahorro fiscal y asesoría personalizada</div>
-                    </p>
-                    <a href="#services" class="button" style="margin-top: 1.5rem;">Ver mis servicios</a>
-                </article>
-            </div>
-        </section>
-
-        <section class="about section" id="about">
-            <div class="about__container container" id="sociedades">
-                <article class="about__info">
-                    <h1 class="section__title">Sociedades: orden, criterio y claridad en la gestión</h1>
-                    <p class="about__description">
-                        Contabilidad clara y decisiones con datos reales: detecto desviaciones, corrijo errores y propongo mejoras prácticas.
-                    </p>
-                    <div style="text-align:center; margin:2rem 0;">
-                        <img src="src/images/creative-sociedades-1.jpg" alt="Contabilidad clara" style="max-width:220px; width:100%; border-radius:10px; box-shadow:0 2px 12px #0002;" onerror="this.style.display='none'">
-                        <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Contabilidad clara y ordenada</div>
-                    </p>
-                    <ul class="about__list">
-                        <li>Conciliación de cuentas: Revisión detallada de la contabilidad y comparación con bancos, proveedores y clientes para detectar y corregir discrepancias.<br><button class="button button-cart" style="margin-top:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Conciliación de cuentas - Sociedades')">Añadir</button></li>
-                        <hr class="service-divider">
-                        <li>Análisis de rentabilidad: Elaboración de informes financieros para determinar si la empresa obtiene beneficios o pérdidas, con explicación clara de resultados.<br><button class="button button-cart" style="margin-top:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Análisis de rentabilidad - Sociedades')">Añadir</button></li>
-                        <hr class="service-divider">
-                        <li>Corrección de errores contables: Identificación y ajuste de errores en los registros contables, con actualización de los libros y software de gestión.<br><button class="button button-cart" style="margin-top:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Corrección de errores contables - Sociedades')">Añadir</button></li>
-                        <hr class="service-divider">
-                        <li>Organización empresarial: Preparación de documentación, actualización de registros y planificación de procesos internos para facilitar la toma de decisiones.<br><button class="button button-cart" style="margin-top:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Organización empresarial - Sociedades')">Añadir</button></li>
-                    </ul>
-                    <button class="button button-link" onclick="toggleDetails('sociedades-mas')">Ver más aquí</button>
-                    <details id="sociedades-mas" style="margin-top:1rem;">
-                        <summary style="cursor:pointer; font-weight:bold;">Más información sobre Sociedades</summary>
-                        <p style="margin-top:0.7rem;">Si tienes dudas sobre la situación de tu empresa, puedo analizar tu contabilidad y proponer soluciones prácticas para mejorar la gestión y la toma de decisiones.</p>
-                    </details>
-                    </ul>
-                    <div class="about__responsabilidad" style="margin-top:1.5rem;">
-                        <strong>Responsabilidad y confianza:</strong>
-                        <ul>
-                            <li>Si intervengo en la contabilidad de tu empresa, me hago responsable de mi trabajo y de posibles errores, siempre actuando dentro de la legalidad.</li>
-                            <li>No me desentiendo como otras asesorías cuando surgen problemas con Hacienda.</li>
-                            <li>Si un cliente me pide actuar de manera incorrecta o fraudulenta, no lo haré; mi compromiso es siempre con la legalidad y la transparencia.</li>
-                        </ul>
-                    </div>
-                </article>
-                <article class="svg__img about__img" id="img2">
-                    <!-- Imagen de reunión con clientes o contabilidad, opcional icono de escudo/confianza -->
-                    <img src="src/images/sociedades.jpg" alt="Reunión con clientes" style="max-width: 320px; width: 100%; border-radius: 12px; box-shadow: 0 2px 12px #0001;" onerror="this.style.display='none'">
-                </article>
-            </div>
-        </section>
-
-        <section class="support section" id="support">
-            <div class="support__container container" id="autonomos">
-                <article class="support__info">
-                    <h1 class="section__title">Autónomos: cuando algo no cuadra, conviene revisarlo</h1>
-                    <p class="support__description">
-                        Reviso tu sistema fiscal y tu facturación para simplificar la gestión, evitar pagos de más y cumplir con tranquilidad.
-                    </p>
-                    <div style="text-align:center; margin:2rem 0;">
-                        <img src="src/images/creative-autonomos-1.jpg" alt="Revisión fiscal autónomos" style="max-width:220px; width:100%; border-radius:10px; box-shadow:0 2px 12px #0002;" onerror="this.style.display='none'">
-                        <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Revisión fiscal para autónomos</div>
-                    </p>
-                    <ul class="support__list">
-                        <li>Revisión fiscal: Análisis de facturación y gastos para determinar el régimen fiscal más conveniente, con simulación de impuestos y recomendación personalizada.<br><button class="button button-cart" style="margin-top:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Revisión fiscal - Autónomos')">Añadir</button></li>
-                        <hr class="service-divider">
-                        <li>Optimización de costes: Revisión de gastos y servicios contratados, con propuestas de reducción de costes y cancelación de servicios innecesarios.<br><button class="button button-cart" style="margin-top:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Optimización de costes - Autónomos')">Añadir</button></li>
-                        <hr class="service-divider">
-                        <li>Asesoramiento fiscal: Explicación clara de obligaciones fiscales, plazos de presentación y estrategias para evitar sanciones, adaptado a la actividad del autónomo.<br><button class="button button-cart" style="margin-top:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Asesoramiento fiscal - Autónomos')">Añadir</button></li>
-                        <hr class="service-divider">
-                        <li>Optimización fiscal: Identificación de gastos deducibles y aplicación de estrategias para reducir la base imponible y maximizar el ahorro fiscal.<br><button class="button button-cart" style="margin-top:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Optimización fiscal - Autónomos')">Añadir</button></li>
-                        <hr class="service-divider">
-                        <li>Formación fiscal: Sesión práctica sobre cómo emitir facturas, registrar gastos y cumplir con las obligaciones fiscales, con ejemplos adaptados al sector.<br><button class="button button-cart" style="margin-top:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Formación fiscal - Autónomos')">Añadir</button></li>
-                    </ul>
-                    <button class="button button-link" onclick="toggleDetails('autonomos-mas')">Ver más aquí</button>
-                    <details id="autonomos-mas" style="margin-top:1rem;">
-                        <summary style="cursor:pointer; font-weight:bold;">Más información para Autónomos</summary>
-                        <p style="margin-top:0.7rem;">Te ayudo a entender tus obligaciones fiscales y a gestionar tus facturas de forma sencilla, para que pagues solo lo justo y evites problemas futuros.</p>
-                    </details>
-                    </ul>
-                    <div class="support__verifasura" style="margin-top:1.5rem;">
-                        <!-- Sección eliminada según solicitud -->
-                    </div>
-                    <a href="#contacto" class="button" style="margin-top:1.5rem;">Solicitar consulta</a>
-                </article>
-                <article class="svg__img support__img" id="img3">
-                    <!-- Iconos de Hacienda, facturas digitales, ordenador mostrando ejemplos -->
-                    <img src="src/images/autonomos.jpg" alt="Facturas digitales" style="max-width: 320px; width: 100%; border-radius: 12px; box-shadow: 0 2px 12px #0001;" onerror="this.style.display='none'">
-                </article>
-            </div>
-        </section>
-
-        <section class="services section" id="services">
-            <div class="services__container container">
-                <article class="services__info">
-                    <h1 class="section__title section__title-center" id="particulares" style="text-align:center;">Antes de pagar o firmar, conviene entender</h1>
-                    <p class="services__description">
-                        Reviso requerimientos, multas, inspecciones o despidos, explico opciones y te ayudo a decidir con calma.
-                    </p>
-                    <div style="text-align:center; margin:2rem 0;">
-                        <img src="src/images/creative-particulares-1.jpg" alt="Ayuda a particulares" style="max-width:220px; width:100%; border-radius:10px; box-shadow:0 2px 12px #0002;" onerror="this.style.display='none'">
-                        <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Ayuda y acompañamiento a particulares</div>
-                    </p>
-                    <ul class="services__list">
-                        <li>Revisión de requerimientos: Análisis de notificaciones oficiales, explicación de su significado y redacción de respuestas para Hacienda u otros organismos.<br><button class="button button-cart" style="margin-top:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Revisión de requerimientos - Particulares')">Añadir</button></li>
-                        <hr class="service-divider">
-                        <li>Gestión de multas e inspecciones: Revisión de notificaciones, preparación de alegaciones y acompañamiento en procesos de inspección fiscal.<br><button class="button button-cart" style="margin-top:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Gestión de multas e inspecciones - Particulares')">Añadir</button></li>
-                        <hr class="service-divider">
-                        <li>Gestión de despidos y finiquitos: Revisión de contratos, cálculo de finiquitos y asesoramiento sobre derechos y pasos a seguir en casos de despido.<br><button class="button button-cart" style="margin-top:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Gestión de despidos y finiquitos - Particulares')">Añadir</button></li>
-                        <hr class="service-divider">
-                        <li>Revisión de escritos: Análisis de contratos, facturas y documentos antes de firmar o pagar, con explicación de cláusulas y advertencia de posibles riesgos.<br><button class="button button-cart" style="margin-top:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Revisión de escritos - Particulares')">Añadir</button></li>
-                    </ul>
-                    <button class="button button-link" onclick="toggleDetails('particulares-mas')">Ver más aquí</button>
-                    <details id="particulares-mas" style="margin-top:1rem;">
-                        <summary style="cursor:pointer; font-weight:bold;">Más información para Particulares</summary>
-                        <p style="margin-top:0.7rem;">Si tienes dudas legales o económicas, reviso tu documentación y te explico las opciones antes de que tomes una decisión importante.</p>
-                    </details>
-                    </ul>
-                </article>
-                <article class="svg__img services__img" id="img4">
-                    <!-- Icono de documento legal o asesor explicando a un particular -->
-                    <img src="src/images/particulares.jpg" alt="Asesoría a particulares" style="max-width: 320px; width: 100%; border-radius: 12px; box-shadow: 0 2px 12px #0001;" onerror="this.style.display='none'">
-                </article>
-            </div>
-        </section>
-
-        <section class="facturas section" id="facturas" style="padding-top:3rem;">
-            <div class="container" style="margin-top:1.5rem;">
-                <h3 style="text-align:center; margin-bottom:2rem;">Verificación de facturas y programas de Hacienda: sencillo y sin sobrecostes</h3>
-                <ul class="facturas__list" style="max-width:600px; margin:0 auto;">
-                    <li style="margin-bottom:1.5rem;">Registro simple y seguro de facturas<br>
-                        <button class="button button-cart" style="margin-top:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Registro de facturas')">Añadir</button>
-                    </li>
-                    <hr class="service-divider">
-                    <li style="margin-bottom:1.5rem;">Revisión de facturas emitidas y recibidas, comprobación de su validez y compatibilidad con los programas oficiales de Hacienda.<br>
-                        <button class="button button-cart" style="margin-top:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Verificación de facturas')">Añadir</button>
-                    </li>
-                    <hr class="service-divider">
-                    <li style="margin-bottom:1.5rem;">Asesoramiento para la presentación de modelos fiscales, ayuda en el uso de programas de Hacienda y resolución de incidencias.<br>
-                        <button class="button button-cart" style="margin-top:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Asesoramiento modelos fiscales')">Añadir</button>
-                    </li>
-                    <hr class="service-divider">
-                    <li style="margin-bottom:1.5rem;">Formación para el manejo de facturas electrónicas y programas de gestión fiscal.<br>
-                        <button class="button button-cart" style="margin-top:0.7rem; padding:0.3em 1em; font-size:0.85rem; border-radius:6px; background:#f2c94c; color:#2b2b2b;" onclick="addToCart('Formación facturas electrónicas')">Añadir</button>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        <section class="app section" id="app">
-            <div class="app__container container" id="como-trabajo">
-                <article class="app__info">
-                    <h2 class="section__title">Cómo Trabajo</h2>
-                    <p class="app__description">
-                        Mi trabajo se basa en la revisión y optimización de la documentación, cuentas y procesos, adaptando cada solución a las necesidades reales de sociedades, autónomos y particulares. Ofrezco acompañamiento personalizado, explicaciones claras y propuestas prácticas para que tomes decisiones informadas, tanto presencial como de forma remota.
-                    </p>
-                    <div style="text-align:center; margin:2rem 0;">
-                        <img src="src/images/creative-comotrabajo-1.jpg" alt="Trabajo personalizado" style="max-width:220px; width:100%; border-radius:10px; box-shadow:0 2px 12px #0002;" onerror="this.style.display='none'">
-                        <div style="font-size:0.95rem; color:#666; margin-top:0.5rem;">Acompañamiento profesional y soluciones a medida</div>
-                    </p>
-                    <ul class="app__list">
-                        <!-- Lista eliminada según solicitud -->
-                    </ul>
-                    <button class="button button-link" onclick="toggleDetails('como-mas')">Ver más aquí</button>
-                    <details id="como-mas" style="margin-top:1rem;">
-                        <summary style="cursor:pointer; font-weight:bold;">Más sobre mi forma de trabajar</summary>
-                        <p style="margin-top:0.7rem;">Cada cliente es único. Me adapto a tus necesidades y te explico cada paso para que tengas el control de tu gestión económica.</p>
-                    </details>
-                    </ul>
-                </article>
-                <article class="svg__img app__img" id="img5">
-                    <!-- Foto trabajando con portátil o asesorando a un cliente -->
-                    <img src="src/images/como-trabajo.jpg" alt="Trabajando con portátil" style="max-width: 320px; width: 100%; border-radius: 12px; box-shadow: 0 2px 12px #0001;" onerror="this.style.display='none'">
-                </article>
-            </div>
-        </section>
-
-        <section class="contact section" id="contact">
-            <div class="contact__container container" id="contacto">
-                <div>
-                    <article>
-                        <h2 class="contact__title section__title">Contacta conmigo</h2>
-                        <p class="contact__description">Rellena el formulario o selecciona servicios y te respondo cuanto antes.</p>
-                    </article>
+                <div class="services-grid" id="services-grid">
+                    <!-- generado por app.js -->
                 </div>
-                <div>
-                    <!-- Resumen de servicios si existen -->
-                    <div id="servicios-resumen" style="display:none; margin-bottom:1.5rem; padding:1rem; background:#eff6ff; border-radius:8px; border-left:4px solid #1976d2;">
-                        <h3 style="margin-top:0; color:#1976d2;">Servicios seleccionados:</h3>
-                        <ul id="servicios-lista" style="list-style:none; padding:0; margin:0.5rem 0;"></ul>
-                    </div>
 
-                    <!-- Campo de consulta personalizada si no hay servicios -->
-                    <div id="consulta-personalizada-container" style="display:none; margin-bottom:1rem; padding:1rem; background:#fff8e1; border-radius:8px; border-left:4px solid #ff9800;">
-                        <p style="margin:0 0 0.5rem 0; color:#f57c00; font-size:0.95rem;">
-                            <strong>💡 Consulta Personalizada:</strong> Si necesitas asesoramiento sobre algo específico que no aparece en los servicios listados, cuéntanos tu caso.
+                <div class="empty-state" id="services-empty" hidden>
+                    <i class="bi bi-search" aria-hidden="true"></i>
+                    <p><strong>No he encontrado servicios con esa búsqueda.</strong></p>
+                    <p>Cuéntame tu caso igualmente y lo estudio.</p>
+                    <a class="btn btn--primary" href="#contacto">Hacer una consulta personalizada</a>
+                </div>
+
+                <noscript>
+                    <p class="notice">Activa JavaScript para ver el catálogo de servicios, o escríbeme a
+                        <a href="mailto:info@duqueconsultoria.es">info@duqueconsultoria.es</a>.</p>
+                </noscript>
+            </div>
+        </section>
+
+        <!-- ================= CÓMO TRABAJO ================= -->
+        <section class="section section--alt" id="como-trabajo" aria-labelledby="como-title">
+            <div class="container">
+                <header class="section__head">
+                    <p class="eyebrow">Método</p>
+                    <h2 class="section__title" id="como-title">Cómo trabajo</h2>
+                    <p class="section__lead">Reviso y optimizo documentación, cuentas y procesos, adaptando cada solución a tu caso real. Tú mantienes el control en todo momento.</p>
+                </header>
+
+                <ol class="process">
+                    <li class="process__step">
+                        <span class="process__icon"><i class="bi bi-chat-dots" aria-hidden="true"></i></span>
+                        <h3>1. Escucho tu caso</h3>
+                        <p>Me cuentas qué te preocupa o qué necesitas, presencialmente o en remoto.</p>
+                    </li>
+                    <li class="process__step">
+                        <span class="process__icon"><i class="bi bi-clipboard-check" aria-hidden="true"></i></span>
+                        <h3>2. Reviso la documentación</h3>
+                        <p>Analizo cuentas, facturas, notificaciones o contratos para entender la situación.</p>
+                    </li>
+                    <li class="process__step">
+                        <span class="process__icon"><i class="bi bi-lightbulb" aria-hidden="true"></i></span>
+                        <h3>3. Te explico las opciones</h3>
+                        <p>Con lenguaje claro y propuestas prácticas, para que decidas con información.</p>
+                    </li>
+                    <li class="process__step">
+                        <span class="process__icon"><i class="bi bi-hand-thumbs-up" aria-hidden="true"></i></span>
+                        <h3>4. Te acompaño</h3>
+                        <p>Aplico la solución contigo y sigo a tu lado si surge cualquier problema con Hacienda.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- ================= SOBRE MÍ ================= -->
+        <section class="section" id="sobre-mi" aria-labelledby="sobre-title">
+            <div class="container about">
+                <div class="about__intro">
+                    <p class="eyebrow">Sobre mí</p>
+                    <h2 class="section__title" id="sobre-title">Experiencia real y criterio honesto</h2>
+                    <p>
+                        Más de 40 años de experiencia en administración, contabilidad y fiscalidad. He pasado por
+                        auditorías, inspecciones y reorganizaciones, y aporto un enfoque práctico, transparente y
+                        soluciones realistas.
+                    </p>
+                    <div class="stats">
+                        <div class="stat"><strong>+40</strong><span>años de experiencia</span></div>
+                        <div class="stat"><strong>3</strong><span>perfiles: sociedades, autónomos y particulares</span></div>
+                        <div class="stat"><strong>100%</strong><span>dentro de la legalidad</span></div>
+                    </div>
+                </div>
+
+                <div class="commitments">
+                    <h3><i class="bi bi-shield-check" aria-hidden="true"></i> Mi compromiso contigo</h3>
+                    <ul>
+                        <li>
+                            <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
+                            <span>Si intervengo en tu contabilidad, me hago responsable de mi trabajo y de posibles errores.</span>
+                        </li>
+                        <li>
+                            <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
+                            <span>No me desentiendo cuando surgen problemas con Hacienda.</span>
+                        </li>
+                        <li>
+                            <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
+                            <span>No actúo de forma incorrecta o fraudulenta: mi compromiso es con la legalidad y la transparencia.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= CONTACTO / SOLICITUD ================= -->
+        <section class="section section--alt" id="contacto" aria-labelledby="contacto-title">
+            <div class="container contact">
+                <div class="contact__aside">
+                    <p class="eyebrow">Contacto</p>
+                    <h2 class="section__title" id="contacto-title">Solicita tu presupuesto</h2>
+                    <p>Revisa los servicios elegidos, déjame tus datos y te respondo cuanto antes con un presupuesto sin compromiso.</p>
+
+                    <ul class="contact__channels">
+                        <li>
+                            <span class="contact__icon"><i class="bi bi-envelope" aria-hidden="true"></i></span>
+                            <div><small>Email</small><a href="mailto:info@duqueconsultoria.es">info@duqueconsultoria.es</a></div>
+                        </li>
+                        <li>
+                            <span class="contact__icon"><i class="bi bi-telephone" aria-hidden="true"></i></span>
+                            <div><small>Teléfono</small><a href="tel:+34XXXXXXXX">+34 XXXXXXXX</a></div>
+                        </li>
+                        <li>
+                            <span class="contact__icon"><i class="bi bi-whatsapp" aria-hidden="true"></i></span>
+                            <div><small>WhatsApp</small><a href="https://wa.me/34XXXXXXXX" target="_blank" rel="noopener">Escríbeme directamente</a></div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card contact__card">
+                    <!-- Resumen de la selección -->
+                    <div class="selection" id="form-selection">
+                        <div class="selection__head">
+                            <h3 class="selection__title"><i class="bi bi-bag-check" aria-hidden="true"></i> Servicios seleccionados <span class="badge badge--soft" data-cart-count>0</span></h3>
+                            <button class="link-btn" type="button" data-open-cart><i class="bi bi-pencil" aria-hidden="true"></i> Editar</button>
+                        </div>
+                        <ul class="chips" id="form-chips"></ul>
+                        <p class="selection__empty" id="form-selection-empty">
+                            Aún no has elegido ningún servicio. Puedes <a href="#servicios">elegirlos aquí</a>
+                            o describir tu caso abajo como consulta personalizada.
                         </p>
                     </div>
 
-                    <form id="contactForm" class="contact__form" style="display:flex; flex-direction:column; gap:0.7rem; max-width:400px; margin:1.5rem 0;">
-                        <input type="text" id="nombre" placeholder="Nombre" required style="padding:0.7rem; border-radius:6px; border:1px solid #ccc;">
-                        <input type="email" id="email" placeholder="Email" required style="padding:0.7rem; border-radius:6px; border:1px solid #ccc;">
-                        <input type="tel" id="telefono" placeholder="Teléfono" style="padding:0.7rem; border-radius:6px; border:1px solid #ccc;">
-                        <textarea id="mensaje" placeholder="Cuéntame tu consulta en detalle..." required style="padding:0.7rem; border-radius:6px; border:1px solid #ccc; min-height:100px;"></textarea>
-                        <div id="tipo-consulta-info" style="font-size:0.85rem; color:#666; padding:0.5rem; background:#f5f5f5; border-radius:6px; text-align:center;">
-                            <span id="tipo-consulta-text">Consulta personalizada</span>
+                    <form id="contact-form" class="form" novalidate>
+                        <div class="form__row">
+                            <div class="field">
+                                <label for="f-nombre">Nombre <span class="req" aria-hidden="true">*</span></label>
+                                <input id="f-nombre" name="nombre" type="text" autocomplete="name" required>
+                                <p class="field__error" id="f-nombre-error"></p>
+                            </div>
+                            <div class="field">
+                                <label for="f-email">Email <span class="req" aria-hidden="true">*</span></label>
+                                <input id="f-email" name="email" type="email" autocomplete="email" required>
+                                <p class="field__error" id="f-email-error"></p>
+                            </div>
                         </div>
-                        <button type="button" class="button" style="margin-top:0.5rem;" onclick="sendContactEmail()">Enviar solicitud</button>
+
+                        <div class="form__row">
+                            <div class="field">
+                                <label for="f-telefono">Teléfono <span class="optional">(opcional)</span></label>
+                                <input id="f-telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel">
+                                <p class="field__error" id="f-telefono-error"></p>
+                            </div>
+                            <div class="field">
+                                <label for="f-perfil">Soy…</label>
+                                <select id="f-perfil" name="perfil">
+                                    <option value="">Selecciona una opción</option>
+                                    <option>Sociedad / empresa</option>
+                                    <option>Autónomo</option>
+                                    <option>Particular</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <fieldset class="field">
+                            <legend>¿Cómo prefieres que trabajemos?</legend>
+                            <div class="segmented">
+                                <label><input type="radio" name="modalidad" value="Indiferente" checked><span>Me da igual</span></label>
+                                <label><input type="radio" name="modalidad" value="Presencial"><span>Presencial</span></label>
+                                <label><input type="radio" name="modalidad" value="En remoto"><span>En remoto</span></label>
+                            </div>
+                        </fieldset>
+
+                        <div class="field">
+                            <label for="f-mensaje">Cuéntame tu caso <span class="optional" id="f-mensaje-hint">(obligatorio si no eliges servicios)</span></label>
+                            <textarea id="f-mensaje" name="mensaje" rows="5" maxlength="2000" placeholder="Por ejemplo: he recibido un requerimiento de Hacienda y no sé cómo responder…"></textarea>
+                            <div class="field__meta">
+                                <p class="field__error" id="f-mensaje-error"></p>
+                                <span class="counter" id="f-mensaje-count">0 / 2000</span>
+                            </div>
+                        </div>
+
+                        <div class="field field--check">
+                            <label>
+                                <input type="checkbox" id="f-privacidad" name="privacidad" required>
+                                <span>Acepto que se usen mis datos únicamente para responder a esta solicitud.</span>
+                            </label>
+                            <p class="field__error" id="f-privacidad-error"></p>
+                        </div>
+
+                        <button class="btn btn--primary btn--lg btn--block" type="submit" id="submit-btn">
+                            <i class="bi bi-send" aria-hidden="true"></i>
+                            <span>Enviar solicitud</span>
+                        </button>
+                        <p class="form__note">Te respondo normalmente en 24–48 h laborables.</p>
+                        <p class="form__fallback" id="form-fallback" hidden></p>
                     </form>
-                </div>
-                <div>
-                    <article>
-                        <ul class="contact__info">
-                            <li class="contact__address">
-                                Email:
-                                <span class="contact__information">info@duqueconsultoria.es</span>
-                            </li>
-                            <li class="contact__address">
-                                Teléfono:
-                                <span class="contact__information">+34 XXXXXXXX</span>
-                            </li>
-                            <li class="contact__address">
-                                WhatsApp:
-                                <a href="https://wa.me/34XXXXXXXX" class="contact__information" target="_blank">Enlace directo</a>
-                            </li>
-                        </ul>
-                    </article>
-                </div>
-            </div>
-        </section>
 
-        <!-- RESUMEN DE CARRITO: Sección para mostrar servicios solicitados -->
-        <section class="cart-summary section" id="shop-cart" style="background:#f0f4f8; padding:3rem 0;">
-            <div class="container" style="max-width:800px;">
-                <h2 class="section__title section__title-center" style="margin-bottom:2rem;">Resumen de Consultas Solicitadas</h2>
-                <div style="background:#fff; padding:2rem; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
-                    <div id="cart-summary-tab" style="margin-bottom:1.5rem; padding:1rem; background:#eff6ff; border-radius:8px; border-left:4px solid #1976d2;">
-                        No hay servicios solicitados aún.
-                    </div>
-                    <div id="cart-items-display" style="margin:1.5rem 0;">
-                        <h3 style="font-size:1rem; color:#333; margin-bottom:1rem;">Servicios en tu lista:</h3>
-                        <ul id="cart-list-tab" style="list-style:none; padding:0; margin:0;">
-                        </ul>
+                    <!-- Mensaje de éxito -->
+                    <div class="success" id="form-success" hidden tabindex="-1">
+                        <span class="success__icon"><i class="bi bi-check-lg" aria-hidden="true"></i></span>
+                        <h3>¡Solicitud enviada!</h3>
+                        <p>Gracias, <strong id="success-name"></strong>. Te responderé en breve a <strong id="success-email"></strong>.</p>
+                        <ul class="success__list" id="success-list"></ul>
+                        <button class="btn btn--ghost" type="button" id="new-request">Hacer otra solicitud</button>
                     </div>
                 </div>
             </div>
         </section>
+    </main>
 
-        <section class="wave" id="wave">
-            <svg class="wave__svg" viewBox="0 0 1440 217" xmlns="http://www.w3.org/2000/svg"><path d="M 0,400 L 0,150 C 61.561538461538476,189.33076923076922 123.12307692307695,228.66153846153844 212,206 C 300.87692307692305,183.33846153846156 417.0692307692308,98.68461538461537 499,105 C 580.9307692307692,111.31538461538463 628.6,208.6 709,213 C 789.4,217.4 902.530769230769,128.91538461538462 997,93 C 1091.469230769231,57.08461538461538 1167.2769230769231,73.73846153846154 1238,92 C 1308.7230769230769,110.26153846153846 1374.3615384615384,130.13076923076923 1440,150 L 1440,400 L 0,400 Z"></path></svg>
-        </section>
-
-        <footer class="footer section">
-            <div class="footer__container container">
-                <article class="footer__content">
-                    <a href="#home" class="footer__logo">Servicios y Consultas Duque S.L.</a>
-                    <p class="footer__description">Asesoría profesional para autónomos, sociedades y particulares.</p>
-                </article>
-                <article class="footer__content">
-                    <h3 class="footer__title">Enlaces</h3>
-                    <ul class="footer__links">
-                        <li><a href="#home" class="footer__link">Inicio</a></li>
-                        <li><a href="#sociedades" class="footer__link">Sociedades</a></li>
-                        <li><a href="#autonomos" class="footer__link">Autónomos</a></li>
-                        <li><a href="#particulares" class="footer__link">Particulares</a></li>
-                        <li><a href="#como-trabajo" class="footer__link">Cómo trabajo</a></li>
-                        <li><a href="#sobre-mi" class="footer__link">Sobre mí</a></li>
-                        <li><a href="#contacto" class="footer__link">Contacto</a></li>
-                    </ul>
-                </article>
-                <article class="footer__content">
-                    <h3 class="footer__title">Contacto</h3>
-                    <ul class="footer__links">
-                        <li><a href="mailto:info@duqueconsultoria.es" class="footer__link">info@duqueconsultoria.es</a></li>
-                        <li><a href="tel:+34XXXXXXXX" class="footer__link">+34 XXXXXXXX</a></li>
-                        <li><a href="https://wa.me/34XXXXXXXX" class="footer__link" target="_blank">WhatsApp</a></li>
-                    </ul>
-                </article>
-                <article class="footer__content">
-                    <h3 class="footer__title">Sobre mí</h3>
-                    <p class="footer__description">Más de 40 años de experiencia en administración, contabilidad y fiscalidad.</p>
-                </article>
-                <article class="footer__social">
-                    <a href="#" class="footer__social-link"><i class="bi bi-linkedin"></i></a>
-                    <a href="#" class="footer__social-link"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="footer__social-link"><i class="bi bi-twitter"></i></a>
-                    <a href="https://wa.me/34XXXXXXXX" class="footer__social-link"><i class="bi bi-whatsapp"></i></a>
-                </article>
+    <!-- ================= PIE ================= -->
+    <footer class="footer">
+        <div class="container footer__grid">
+            <div>
+                <a class="brand brand--footer" href="#inicio">
+                    <span class="brand__mark" aria-hidden="true">D</span>
+                    <span class="brand__text"><strong>Duque</strong><small>Servicios y Consultas S.L.</small></span>
+                </a>
+                <p class="footer__text">Asesoría profesional para autónomos, sociedades y particulares.</p>
             </div>
-            <p class="footer__copy">&#169; Servicios y Consultas Duque S.L. Todos los derechos reservados.</p>
+            <div>
+                <h3 class="footer__title">Servicios</h3>
+                <ul class="footer__links" id="footer-categories"><!-- generado por app.js --></ul>
+            </div>
+            <div>
+                <h3 class="footer__title">La asesoría</h3>
+                <ul class="footer__links">
+                    <li><a href="#como-trabajo">Cómo trabajo</a></li>
+                    <li><a href="#sobre-mi">Sobre mí</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="footer__title">Contacto</h3>
+                <ul class="footer__links">
+                    <li><a href="mailto:info@duqueconsultoria.es">info@duqueconsultoria.es</a></li>
+                    <li><a href="tel:+34XXXXXXXX">+34 XXXXXXXX</a></li>
+                </ul>
+                <div class="footer__social">
+                    <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
+                    <a href="https://wa.me/34XXXXXXXX" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="bi bi-whatsapp" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+        <p class="footer__copy container">© <span id="year"></span> Servicios y Consultas Duque S.L. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- ================= BARRA FLOTANTE DEL CARRITO ================= -->
+    <div class="cart-bar" id="cart-bar">
+        <div class="cart-bar__inner">
+            <span class="cart-bar__icon"><i class="bi bi-bag-check" aria-hidden="true"></i></span>
+            <span class="cart-bar__text"><strong data-cart-count>0</strong> <span id="cart-bar-label">servicios seleccionados</span></span>
+            <button class="btn btn--light" type="button" data-open-cart>Revisar</button>
+            <a class="btn btn--accent" href="#contacto">Solicitar <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+        </div>
+    </div>
+
+    <!-- ================= PANEL DEL CARRITO ================= -->
+    <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
+    <aside class="drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden>
+        <header class="drawer__head">
+            <h2 id="drawer-title"><i class="bi bi-bag" aria-hidden="true"></i> Tu solicitud</h2>
+            <button class="icon-btn" type="button" id="cart-close" aria-label="Cerrar">
+                <i class="bi bi-x-lg" aria-hidden="true"></i>
+            </button>
+        </header>
+
+        <div class="drawer__body">
+            <div class="drawer__empty" id="drawer-empty">
+                <i class="bi bi-bag-plus" aria-hidden="true"></i>
+                <p><strong>Todavía no has añadido servicios.</strong></p>
+                <p>Explora el catálogo y pulsa «Añadir» en los que te interesen.</p>
+                <button class="btn btn--primary" type="button" id="drawer-browse">Ver servicios</button>
+            </div>
+            <div id="drawer-groups"></div>
+        </div>
+
+        <footer class="drawer__foot" id="drawer-foot">
+            <p class="drawer__note"><i class="bi bi-info-circle" aria-hidden="true"></i> Presupuesto gratuito y sin compromiso. No se realiza ningún pago.</p>
+            <div class="drawer__actions">
+                <button class="btn btn--ghost" type="button" id="cart-clear"><i class="bi bi-trash3" aria-hidden="true"></i> Vaciar</button>
+                <button class="btn btn--primary" type="button" id="cart-checkout">Continuar <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
+            </div>
         </footer>
+    </aside>
 
-        <a class="scrollup" id="scroll-up" href="#home">
-            <i class="scrollup__icon bi bi-arrow-up"></i>
-        </a>
+    <!-- Notificaciones -->
+    <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
 
-        <!-- SOBRE MÍ: Sección separada para destacar experiencia y valores -->
-        <section class="about section" id="sobre-mi" style="background:#f8f8f8; padding:3rem 0;">
-            <div class="about__container container">
-                <article class="about__info">
-                    <h1 class="section__title">Sobre mí</h1>
-                    <p class="about__description">
-                        Más de 40 años de experiencia en administración, contabilidad y fiscalidad. He pasado por auditorías e inspecciones y aporto criterio honesto y soluciones realistas.
-                    </p>
-                    <button class="button button-link" onclick="toggleDetails('sobremi-mas')">Ver más aquí</button>
-                    <details id="sobremi-mas" style="margin-top:1rem;">
-                        <summary style="cursor:pointer; font-weight:bold;">Más sobre mi experiencia</summary>
-                        <p style="margin-top:0.7rem;">Experiencia en auditorías, inspecciones y reorganizaciones, con un enfoque práctico y transparente.</p>
-                    </details>
-                </article>
-                <article class="svg__img about__img" id="img6">
-                    <!-- Foto profesional en oficina o entorno empresarial -->
-                    <img src="src/images/sobre-mi.jpg" alt="Foto profesional Duque Consultoría" style="max-width: 320px; width: 100%; border-radius: 12px; box-shadow: 0 2px 12px #0001;" onerror="this.style.display='none'">
-                </article>
-            </div>
-        </section>
-    </body>
-
-<script>
-// Configuración de correo - EmailJS (se carga desde emailjs-config.js)
-const EMAIL_CONFIG = {
-    SERVICE_ID: typeof EMAILJS_SERVICE_ID !== 'undefined' ? EMAILJS_SERVICE_ID : 'gmail',
-    TEMPLATE_ID: typeof EMAILJS_TEMPLATE_ID !== 'undefined' ? EMAILJS_TEMPLATE_ID : 'your_template_id',
-    RECIPIENT_EMAIL: typeof RECIPIENT_EMAIL !== 'undefined' ? RECIPIENT_EMAIL : 'josemanuelduquematoso@gmail.com'
-};
-
-// Función para enviar correo de contacto
-function sendContactEmail() {
-    // Verificar que EmailJS esté inicializado
-    if (typeof emailjs === 'undefined') {
-        showToast('❌ EmailJS no está configurado. Consulta EMAILJS_SETUP.md para instrucciones.');
-        return;
-    }
-    
-    const nombre = document.getElementById('nombre').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const telefono = document.getElementById('telefono').value.trim();
-    const mensaje = document.getElementById('mensaje').value.trim();
-    
-    // Validar campos
-    if (!nombre || !email) {
-        showToast('❌ Por favor, rellena todos los campos requeridos');
-        return;
-    }
-    
-    // Obtener servicios del carrito o de sessionStorage
-    let servicesText = '';
-    
-    // Primero, buscar en el carrito actual
-    if (cart && cart.length > 0) {
-        servicesText = cart.join('\n- ');
-    } else {
-        // Si no hay carrito, buscar en sessionStorage
-        const pendingServices = sessionStorage.getItem('pendingServices');
-        if (pendingServices) {
-            try {
-                const services = JSON.parse(pendingServices);
-                if (services && services.length > 0) {
-                    servicesText = services.join('\n- ');
-                }
-            } catch (e) {
-                console.error('Error parsing pending services:', e);
-            }
-        }
-    }
-    
-    if (!mensaje && !servicesText) {
-        showToast('❌ Escribe tu consulta o selecciona un servicio');
-        return;
-    }
-
-    // Preparar datos para EmailJS
-    const messageParts = [];
-    if (mensaje) {
-        messageParts.push(mensaje);
-    }
-    if (servicesText) {
-        messageParts.push(`Servicios solicitados:\n- ${servicesText}`);
-    }
-    const messageWithServices = messageParts.join('\n\n');
-    const templateParams = {
-        to_email: EMAIL_CONFIG.RECIPIENT_EMAIL,
-        from_name: nombre,
-        from_email: email,
-        phone: telefono || 'No proporcionado',
-        message: messageWithServices,
-        services: servicesText,
-        user_email: email  // Copiar al usuario también
-    };
-    
-    // Mostrar estado de envío
-    showToast('📧 Enviando solicitud...');
-    
-    // Enviar correo a través de EmailJS
-    emailjs.send(EMAIL_CONFIG.SERVICE_ID, EMAIL_CONFIG.TEMPLATE_ID, templateParams)
-        .then(function(response) {
-            console.log('Correo enviado exitosamente', response.status, response.text);
-            showToast('✓ ¡Solicitud enviada correctamente! Te responderemos pronto.');
-            
-            // Limpiar formulario
-            document.getElementById('contactForm').reset();
-            
-            // Limpiar carrito
-            cart.length = 0;
-            sessionStorage.removeItem('pendingServices');
-            renderCart();
-            
-            // Scroll a arriba
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, function(error) {
-            console.error('Error al enviar correo:', error);
-            showToast('⚠️ Error al enviar. Intenta nuevamente o contacta directamente.');
-        });
-}
-
-// Botón flotante de Solicitar Consulta
-function scrollToContact() {
-    const contactSection = document.getElementById('contacto');
-    if (contactSection) {
-        contactSection.scrollIntoView({ behavior: 'smooth' });
-        // Highlight the button area briefly
-        const btn = document.getElementById('btn-solicitar-flotante');
-        if (btn) {
-            btn.style.background = '#0d47a1';
-            setTimeout(() => {
-                btn.style.background = '#1976d2';
-            }, 300);
-        }
-    }
-}
-
-// Mostrar/ocultar botón flotante según scroll
-window.addEventListener('scroll', function() {
-    const btn = document.getElementById('btn-solicitar-flotante');
-    const contactSection = document.getElementById('contacto');
-    
-    if (btn && contactSection) {
-        const contactRect = contactSection.getBoundingClientRect();
-        // Si la sección de contacto está visible en la ventana, ocultar el botón
-        if (contactRect.top < window.innerHeight && contactRect.bottom > 0) {
-            btn.style.display = 'none';
-        } else {
-            btn.style.display = 'block';
-        }
-    }
-});
-
-// Inicializar visibilidad del botón al cargar
-window.addEventListener('DOMContentLoaded', function() {
-    const btn = document.getElementById('btn-solicitar-flotante');
-    const contactSection = document.getElementById('contacto');
-    
-    if (btn && contactSection) {
-        const contactRect = contactSection.getBoundingClientRect();
-        if (contactRect.top < window.innerHeight && contactRect.bottom > 0) {
-            btn.style.display = 'none';
-        } else {
-            btn.style.display = 'block';
-        }
-    }
-    
-    renderCart();  // Esto actualizará la sección de contacto según el carrito
-});
-
-// Toast notification function
-function showToast(message, duration = 3000) {
-    const toast = document.getElementById('toast-notification');
-    const toastMessage = document.getElementById('toast-message');
-    if (toast && toastMessage) {
-        toastMessage.textContent = message;
-        toast.style.opacity = '1';
-        toast.style.transform = 'translateY(0)';
-        
-        setTimeout(() => {
-            toast.style.opacity = '0';
-            toast.style.transform = 'translateY(50px)';
-        }, duration);
-    }
-}
-
-// Toggle details for 'Ver más aquí' buttons
-function toggleDetails(id) {
-    var el = document.getElementById(id);
-    if (el) el.open = !el.open;
-}
-// Smooth scroll for anchor links and close mobile menu after click
-document.querySelectorAll('a.nav__link, .footer__link, .scrollup').forEach(link => {
-    link.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href && href.startsWith('#')) {
-            const target = document.querySelector(href);
-            if (target) {
-                e.preventDefault();
-                target.scrollIntoView({ behavior: 'smooth' });
-                // Close mobile menu if open
-                const navMenu = document.getElementById('nav-menu');
-                if (navMenu && navMenu.classList.contains('show-menu')) {
-                    navMenu.classList.remove('show-menu');
-                }
-            }
-        }
-    });
-});
-
-// Hide header on scroll down, show on scroll up
-let lastScrollY = window.scrollY;
-let header = document.getElementById('header');
-window.addEventListener('scroll', function() {
-    if (!header) header = document.getElementById('header');
-    if (window.scrollY > lastScrollY && window.scrollY > 80) {
-        header.style.top = '-100px'; // hide
-    } else {
-        header.style.top = '0'; // show
-    }
-    lastScrollY = window.scrollY;
-});
-// Modal dialog logic - REMOVED (no usado)
-
-// Dynamic testimonials - REMOVED
-// Keep empty space for reference
-
-// Section reveal animation on scroll
-const revealSections = document.querySelectorAll('.section');
-const revealOnScroll = () => {
-    const trigger = window.innerHeight * 0.85;
-    revealSections.forEach(sec => {
-        const rect = sec.getBoundingClientRect();
-        if (rect.top < trigger) {
-            sec.style.opacity = 1;
-            sec.style.transform = 'translateY(0)';
-        } else {
-            sec.style.opacity = 0;
-            sec.style.transform = 'translateY(40px)';
-        }
-    });
-};
-window.addEventListener('scroll', revealOnScroll);
-window.addEventListener('DOMContentLoaded', revealOnScroll);
-// Initial style for animation
-revealSections.forEach(sec => {
-    sec.style.transition = 'opacity 0.7s, transform 0.7s';
-    sec.style.opacity = 0;
-    sec.style.transform = 'translateY(40px)';
-});
-
-// Tienda de servicios: lógica de carrito mejorada
-const cart = [];
-function addToCart(service) {
-    if (!cart.includes(service)) {
-        cart.push(service);
-        renderCart();
-        // Show success toast
-        showToast(`✓ ${service} agregado a tu consulta`);
-    } else {
-        // Show info toast if already in cart
-        showToast('Este servicio ya está en tu lista de consultas');
-    }
-}
-function renderCart() {
-    const cartList = document.getElementById('cart-list');
-    const cartSummary = document.getElementById('cart-summary');
-    const cartListTab = document.getElementById('cart-list-tab');
-    const cartSummaryTab = document.getElementById('cart-summary-tab');
-    const cartCountNav = document.getElementById('cart-count-nav');
-    const serviciosResumen = document.getElementById('servicios-resumen');
-    const serviciosLista = document.getElementById('servicios-lista');
-    const consultaPersonalizadaContainer = document.getElementById('consulta-personalizada-container');
-    const tipoConsultaText = document.getElementById('tipo-consulta-text');
-    
-    if (cartList) {
-        cartList.innerHTML = '';
-        cart.forEach((item, idx) => {
-            cartList.innerHTML += `<li style='margin-bottom:0.5rem;'>${item} <button style='margin-left:1rem; background:none; border:none; color:#d32f2f; cursor:pointer;' onclick='removeFromCart(${idx})'>Eliminar</button></li>`;
-        });
-    }
-    if (cartSummary) {
-        if (cart.length === 0) {
-            cartSummary.innerHTML = 'No hay servicios en el carrito.';
-        } else {
-            cartSummary.innerHTML = `Servicios seleccionados: <span style='color:#1976d2;'>${cart.length}</span>`;
-        }
-    }
-    // Visual tab summary
-    if (cartListTab) {
-        cartListTab.innerHTML = '';
-        if (cart.length === 0) {
-            cartListTab.innerHTML = '<li style="color:#999; font-style:italic;">Sin servicios solicitados aún</li>';
-        } else {
-            cart.forEach((item, idx) => {
-                cartListTab.innerHTML += `<li style='margin-bottom:0.8rem; padding:0.7rem; background:#f5f5f5; border-radius:6px; display:flex; justify-content:space-between; align-items:center;'><span>${item}</span> <button style='margin-left:1rem; background:none; border:none; color:#d32f2f; cursor:pointer; font-size:0.9rem;' title='Eliminar' onclick='removeFromCart(${idx})'>✕ Eliminar</button></li>`;
-            });
-        }
-    }
-    if (cartSummaryTab) {
-        if (cart.length === 0) {
-            cartSummaryTab.innerHTML = '<strong>Estado:</strong> Sin servicios solicitados aún. Haz clic en "Solicitar" para agregar consultas.';
-        } else {
-            cartSummaryTab.innerHTML = `<strong style='color:#1976d2;'>✓ ${cart.length} ${cart.length === 1 ? 'consulta' : 'consultas'} solicitada${cart.length === 1 ? '' : 's'}</strong> - Listo para enviar tu solicitud de asesoría.`;
-        }
-    }
-    // Update cart count in nav
-    if (cartCountNav) {
-        cartCountNav.textContent = cart.length;
-    }
-    
-    // Actualizar sección de contacto según carrito
-    if (serviciosResumen && serviciosLista && consultaPersonalizadaContainer && tipoConsultaText) {
-        if (cart.length > 0) {
-            // Mostrar resumen de servicios
-            serviciosResumen.style.display = 'block';
-            serviciosLista.innerHTML = '';
-            cart.forEach(service => {
-                serviciosLista.innerHTML += `<li style='margin:0.3rem 0; padding-left:1.5rem;'>✓ ${service}</li>`;
-            });
-            consultaPersonalizadaContainer.style.display = 'none';
-            tipoConsultaText.textContent = `Servicios: ${cart.length} solicitado${cart.length === 1 ? '' : 's'}`;
-        } else {
-            // Mostrar consulta personalizada
-            serviciosResumen.style.display = 'none';
-            consultaPersonalizadaContainer.style.display = 'block';
-            tipoConsultaText.textContent = 'Consulta personalizada';
-        }
-    }
-}
-function removeFromCart(idx) {
-    const removed = cart.splice(idx, 1)[0];
-    renderCart();
-    showToast(`✓ ${removed} eliminado de tu solicitud`);
-}
-function checkoutCart() {
-    if (cart.length === 0) {
-        showToast('❌ Agrega al menos un servicio a tu solicitud');
-        return;
-    }
-    
-    // Scroll to contact form
-    const contactSection = document.getElementById('contacto');
-    if (contactSection) {
-        contactSection.scrollIntoView({ behavior: 'smooth' });
-        showToast('✓ Rellena el formulario con tus datos para completar la solicitud');
-        
-        // Store cart items to send with email
-        sessionStorage.setItem('pendingServices', JSON.stringify(cart));
-    }
-}
-// Carrito tab behavior
-function showCartTab(e) {
-    e.preventDefault();
-    const cartSection = document.getElementById('shop-cart');
-    if (cartSection) {
-        // Scroll to cart section and focus summary
-        cartSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setTimeout(() => {
-            const cartSummaryTab = document.getElementById('cart-summary-tab');
-            if (cartSummaryTab) {
-                cartSummaryTab.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                cartSummaryTab.style.background = '#fffbe6';
-                cartSummaryTab.style.transition = 'background 0.7s';
-                setTimeout(() => {
-                    cartSummaryTab.style.background = '#eff6ff';
-                }, 1200);
-            }
-        }, 400);
-    }
-}
-</script>
-
-<!-- EmailJS Library - Load at end of body for guaranteed availability -->
-
-<script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-</script>
-
-<!-- EmailJS Initialization - Runs after library loads -->
-<script>
-// Wait for EmailJS to load and initialize
-function initEmailJS() {
-    console.log('🔍 Verificando EmailJS...');
-    
-    // Check if EmailJS library is available
-    if (typeof window.emailjs === 'undefined') {
-        console.warn('⏳ EmailJS aún no está disponible, reintentando...');
-        setTimeout(initEmailJS, 300);
-        return;
-    }
-    
-    // Check if config keys are available
-    if (typeof window.EMAILJS_PUBLIC_KEY === 'undefined') {
-        console.error('❌ EMAILJS_PUBLIC_KEY no definida en emailjs-config.js');
-        return;
-    }
-    
-    // Initialize EmailJS with public key
-    try {
-        window.emailjs.init(window.EMAILJS_PUBLIC_KEY);
-        console.log('✓ EmailJS inicializado correctamente');
-        console.log('  Public Key:', window.EMAILJS_PUBLIC_KEY.substring(0, 10) + '...');
-    } catch (error) {
-        console.error('❌ Error al inicializar EmailJS:', error.message);
-    }
-}
-
-// Start initialization after a brief delay to allow library to load
-setTimeout(initEmailJS, 100);
-
-// Also try on DOM ready
-document.addEventListener('DOMContentLoaded', function() {
-    if (typeof window.emailjs !== 'undefined') {
-        console.log('✓ EmailJS disponible en DOMContentLoaded');
-    } else {
-        console.warn('⏳ EmailJS aún no disponible en DOMContentLoaded, esperando...');
-        setTimeout(initEmailJS, 500);
-    }
-});
-
-// Final fallback on window load
-window.addEventListener('load', function() {
-    if (typeof window.emailjs === 'undefined') {
-        console.error('❌ EmailJS no se ha cargado. Verifica:');
-        console.error('   - El CDN de EmailJS está accesible');
-        console.error('   - No hay bloqueadores de scripts/publicidad');
-        console.error('   - Abre F12 > Network y busca "index.min.js"');
-    } else {
-        console.log('✓ EmailJS disponible en window.load');
-    }
-});
-</script>
+    <a class="scroll-top" id="scroll-top" href="#inicio" aria-label="Volver arriba"><i class="bi bi-arrow-up" aria-hidden="true"></i></a>
+</body>
 </html>

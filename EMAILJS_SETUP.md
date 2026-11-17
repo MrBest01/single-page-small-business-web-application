@@ -12,9 +12,9 @@ Este proyecto utiliza **EmailJS** para enviar correos automáticamente a `josema
 ### 2. Obtener tu Public Key
 - En el dashboard de EmailJS, ve a **Account** > **API Keys**
 - Copia tu **Public Key** (por ejemplo: `abc123def456...`)
-- Abre el archivo `index.html` y reemplaza `YOUR_PUBLIC_KEY_HERE` con tu Public Key en esta línea:
+- Abre el archivo `emailjs-config.js` y pon tu Public Key en esta línea:
 ```javascript
-emailjs.init("YOUR_PUBLIC_KEY_HERE");
+window.EMAILJS_PUBLIC_KEY = "tu_public_key";
 ```
 
 ### 3. Configurar un Servicio de Correo (Gmail)
@@ -25,12 +25,9 @@ emailjs.init("YOUR_PUBLIC_KEY_HERE");
   - Usa: `josemanuelduquematoso@gmail.com`
   - Se abrirá Google para autorizar el acceso
 - Anota el **Service ID** (por ejemplo: `service_abc123...`)
-- Reemplaza `gmail` en `index.html` con tu Service ID:
+- Ponlo en `emailjs-config.js`:
 ```javascript
-const EMAIL_CONFIG = {
-    SERVICE_ID: 'service_abc123...',  // Tu Service ID de EmailJS
-    // ...
-};
+window.EMAILJS_SERVICE_ID = "service_abc123...";
 ```
 
 ### 4. Crear una Plantilla de Correo (Email Template)
@@ -80,14 +77,12 @@ Este correo fue enviado automáticamente desde tu página web.
 
 - Guarda la plantilla
 - Copia el **Template ID** (por ejemplo: `template_abc123...`)
-- Reemplaza en `index.html`:
+- Ponlo en `emailjs-config.js`:
 ```javascript
-const EMAIL_CONFIG = {
-    SERVICE_ID: 'service_abc123...',
-    TEMPLATE_ID: 'template_abc123...',  // Tu Template ID
-    RECIPIENT_EMAIL: 'josemanuelduquematoso@gmail.com'
-};
+window.EMAILJS_TEMPLATE_ID = "template_abc123...";
 ```
+- Además de `{{message}}` y `{{services}}`, el formulario envía `{{client_type}}` (Sociedad / Autónomo / Particular), `{{modality}}` (Presencial / En remoto / Indiferente) y `{{reply_to}}`, por si quieres usarlos en la plantilla. El perfil y la modalidad ya van incluidos dentro de `{{message}}`.
+- Si EmailJS no está disponible o falla, el formulario ofrece al cliente enviar la solicitud desde su propio correo con todo ya rellenado.
 
 ### 5. Crear Plantilla para Confirmación al Cliente (Opcional)
 Para enviar un correo de confirmación al cliente que completa el formulario, puedes crear otra plantilla:
@@ -144,10 +139,9 @@ Después de completar todos los pasos:
 ## Solución de Problemas
 
 ### Error: "emailjs is not defined"
-- **Verifica el orden de los scripts:** El archivo `emailjs-config.js` debe cargarse ANTES que el script de EmailJS del CDN
+- **Verifica el orden de los scripts:** En el `<head>` de `index.html`, `emailjs-config.js` se carga primero, después la librería de EmailJS del CDN y por último `assets/js/app.js`, que inicializa EmailJS automáticamente
 - **Comprueba la consola:** Abre el inspector (F12) → Pestaña **Console** para ver si hay errores de carga
-- **Verifica que EmailJS esté disponible:** Abre **Network** (F12) y comprueba que el script `index.min.js` de EmailJS se cargó correctamente (estado 200)
-- **Asegúrate de que `emailjs.init()` se ejecute después de cargar la librería:** En `index.html`, el `<script>` que llama a `emailjs.init()` debe estar DESPUÉS del script de EmailJS
+- **Verifica que EmailJS esté disponible:** Abre **Network** (F12) y comprueba que el script `email.min.js` de EmailJS se cargó correctamente (estado 200). Los bloqueadores de publicidad a veces lo impiden
 
 ### El correo no se envía
 - Verifica que tu Public Key y Service ID sean correctos
